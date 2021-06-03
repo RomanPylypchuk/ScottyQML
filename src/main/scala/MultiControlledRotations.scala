@@ -1,14 +1,14 @@
 import BitRegisterFactory.BitRegisterFrom
-import scotty.quantum.{BitRegister, Superposition}
-import scotty.quantum.gate.StandardGate.{RX, RY, X}
-import scotty.quantum.gate.{CompositeGate, ControlGate, Controlled, Gate, TargetGate}
-import scotty.quantum.math.Complex
 import MathOps.{bits, crossJoin}
 import MultipleControlled.{controlledConfigurationGate, dichotomyToControlMap}
+import scotty.quantum.gate.StandardGate.RY
+import scotty.quantum.gate.{CompositeGate, Gate}
+import scotty.quantum.math.Complex
+import scotty.quantum.{BitRegister, Superposition}
 
 object MultiControlledRotations {
 
-  //Amplitude => Branch => Configuration => Angle
+  //Angles of multiple controlled rotations for amplitude encoding
   val RYAngles: Superposition => Int => Int => Double =
     superPosition => {
       val amps = superPosition.state.grouped(2).map { case Array(r, i) => Complex(r, i) }.toArray
@@ -39,33 +39,47 @@ object MultiControlledRotations {
         }
     }
 
-  val branchBlock: Superposition => Int => List[Gate] =
+  //Block of multiple controlled rotations, acting on particular qubit
+  val branchBlock: Superposition => Boolean => Int => List[Gate] =
     superPosition =>
-      tQubitNum => {
-        val nQubits = superPosition.qubitCount
-        val s = nQubits - tQubitNum + 1
+      inverseRot =>
+        tQubitNum => {
+          val nQubits = superPosition.qubitCount
+          val s = nQubits - tQubitNum + 1
 
-        val dichotomyAngle: Int => Double = RYAngles(superPosition)(s)
-        val sDichotomies: List[String] = crossJoin(List.fill(tQubitNum - 1)(bits)).map(_.mkString)
-        val dichotomies: List[BitRegister] = sDichotomies.map(_.toBitRegister)
+          val dichotomyAngle: Int => Double = RYAngles(superPosition)(s)
+          val sDichotomies: List[String] = crossJoin(List.fill(tQubitNum - 1)(bits)).map(_.mkString)
+          val dichotomies: List[BitRegister] = sDichotomies.map(_.toBitRegister)
 
-        val dichotomyCRY: ((BitRegister, Int)) => Option[CompositeGate] = {
-          case (dichotomy, j) =>
-            dichotomyAngle(j + 1) match {
-              case 0.0 => None
-              case angle =>
-                val targetRY = RY(angle, tQubitNum - 1)
-                Some((controlledConfigurationGate compose dichotomyToControlMap) (dichotomy)(targetRY))
-            }
+          val dichotomyCRY: ((BitRegister, Int)) => Option[CompositeGate] = {
+            case (dichotomy, j) =>
+              dichotomyAngle(j + 1) match {
+                case 0.0 => None
+                case angle =>
+                  val rotationAngle = if (!inverseRot) angle else -angle
+                  val targetRY = RY(rotationAngle, tQubitNum - 1)
+                  Some((controlledConfigurationGate compose dichotomyToControlMap) (dichotomy)(targetRY))
+              }
+          }
+
+          dichotomies match {
+            case Nil =>
+              val angle = dichotomyAngle(1)
+              if (angle != 0) List(RY(angle, 0)) else Nil
+            case ds => ds.zipWithIndex.flatMap(dichotomyCRY)
+          }
+
         }
 
-        dichotomies match {
-          case Nil =>
-            val angle = dichotomyAngle(1)
-            if (angle != 0) List(RY(angle, 0)) else Nil
-          case ds => ds.zipWithIndex.flatMap(dichotomyCRY)
-        }
+  //Generates sequence of Gates to create state, given amplitude of qubit superposition, according to Mottonen et al.
+  val amplitudeEncodeCascade: Superposition => List[Gate] =
+    superPosition => {
+      val makeReverseBlock = branchBlock(superPosition)(false)
+      val reverseBlock: List[Gate] => List[Gate] = _.reverse
+      val makeBlock = reverseBlock compose makeReverseBlock
+      val allBlocks = (1 to 3).toList.flatMap(i => makeBlock(i))
+      allBlocks
+    }
 
-      }
 
 }
