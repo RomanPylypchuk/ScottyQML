@@ -1,3 +1,6 @@
+package utils
+
+import breeze.linalg.{DenseMatrix, DenseVector, Transpose}
 import scotty.quantum.{QubitRegister, Superposition}
 
 object SuperpositionFactory {
@@ -31,4 +34,20 @@ object SuperpositionFactory {
     }
   }
 
+  /*
+    val fromStrMap = SuperpositionFactory(
+    Map("000" -> math.sqrt(0.2), "010" -> math.sqrt(0.5), "110" -> math.sqrt(0.2), "111" -> math.sqrt(0.1))
+  )
+  */
+
+  //Straightforward basis encoding of binary patterns for testing
+  def apply(binaryData: DenseMatrix[Int]): Option[Superposition] = {
+    val binaryPatterns = (0 until binaryData.rows).map{ rowIdx =>
+      val rowVector: Transpose[DenseVector[Int]] = binaryData(rowIdx, ::)
+      rowVector.inner.toArray.mkString("")
+    }
+    val equalAmplitude: Double = 1.0 / math.sqrt(binaryData.rows)
+    val stringMap: Map[String, Double] = binaryPatterns.map(_ -> equalAmplitude).toMap
+    SuperpositionFactory(stringMap)
+  }
 }

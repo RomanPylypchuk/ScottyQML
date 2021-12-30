@@ -1,6 +1,8 @@
-import scotty.quantum.{Bit, BitRegister, Zero}
+package encoding.amplitude
+
 import scotty.quantum.gate.StandardGate.X
-import scotty.quantum.gate.{CompositeGate, ControlGate, Controlled, Gate, TargetGate}
+import scotty.quantum.gate._
+import scotty.quantum.{Bit, BitRegister, Zero}
 
 object MultipleControlled {
 

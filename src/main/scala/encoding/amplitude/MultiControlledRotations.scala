@@ -1,10 +1,12 @@
-import BitRegisterFactory.BitRegisterFrom
-import MathOps.{bits, crossJoin}
-import MultipleControlled.{controlledConfigurationGate, dichotomyToControlMap}
+package encoding.amplitude
+
+import encoding.amplitude.MultipleControlled.{controlledConfigurationGate, dichotomyToControlMap}
 import scotty.quantum.gate.StandardGate.RY
 import scotty.quantum.gate.{CompositeGate, Gate}
 import scotty.quantum.math.Complex
 import scotty.quantum.{BitRegister, Superposition}
+import utils.BitRegisterFactory.{BitRegisterFrom, bits}
+import utils.MathOps.CrossOps
 
 object MultiControlledRotations {
 
@@ -48,7 +50,7 @@ object MultiControlledRotations {
           val s = nQubits - tQubitNum + 1
 
           val dichotomyAngle: Int => Double = RYAngles(superPosition)(s)
-          val sDichotomies: List[String] = crossJoin(List.fill(tQubitNum - 1)(bits)).map(_.mkString)
+          val sDichotomies: List[String] = (bits naryCross (tQubitNum - 1)).map(_.mkString)
           val dichotomies: List[BitRegister] = sDichotomies.map(_.toBitRegister)
 
           val dichotomyCRY: ((BitRegister, Int)) => Option[CompositeGate] = {

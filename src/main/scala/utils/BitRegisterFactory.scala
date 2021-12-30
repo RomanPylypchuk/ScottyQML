@@ -1,6 +1,10 @@
-import scotty.quantum.{Bit, BitRegister, One, Zero}
+package utils
+
+import scotty.quantum.{Bit, BitRegister}
 
 object BitRegisterFactory {
+
+  val bits = List(0, 1)
 
   implicit class BitRegisterTo(bitRegister: BitRegister) {
     def toDecimal: Int = Integer.parseInt(this.toHumanString, 2)
@@ -10,5 +14,4 @@ object BitRegisterFactory {
   implicit class BitRegisterFrom(str: String) {
     def toBitRegister: BitRegister = BitRegister(str.map(c => Bit(c.asDigit)): _*)
   }
-
 }
