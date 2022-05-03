@@ -34,12 +34,6 @@ object SuperpositionFactory {
     }
   }
 
-  /*
-    val fromStrMap = SuperpositionFactory(
-    Map("000" -> math.sqrt(0.2), "010" -> math.sqrt(0.5), "110" -> math.sqrt(0.2), "111" -> math.sqrt(0.1))
-  )
-  */
-
   //Straightforward basis encoding of binary patterns for testing
   def apply(binaryData: DenseMatrix[Int]): Option[Superposition] = {
     val binaryPatterns = (0 until binaryData.rows).map{ rowIdx =>
