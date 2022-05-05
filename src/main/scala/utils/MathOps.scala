@@ -2,6 +2,10 @@ package utils
 
 object MathOps {
 
+  //Inverse isomap
+  def inverseMap[K,V](directMap: Map[K,V]): Map[V,K] =
+    directMap.map{case (k, v) => (v,k)}
+
   //Filtered Cartesian product
   def crossJoin[T](list: List[List[T]],
                    combinator: (T, List[T]) => Option[List[T]] = (head: T, tail: List[T]) => Some(head :: tail)): List[List[T]] = {
