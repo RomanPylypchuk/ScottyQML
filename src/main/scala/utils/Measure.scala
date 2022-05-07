@@ -1,12 +1,13 @@
 package utils
 
 import scotty.quantum.Circuit
+import scotty.quantum.ExperimentResult.StateStats
 import scotty.simulator.QuantumSimulator
 import utils.BitRegisterFactory.{BitRegisterFrom, BitRegisterTo}
 
 object Measure {
 
-  val measureTimes: Int => Circuit => String = {
+  val measureTimes: Int => Circuit => StateStats = {
     trials =>
      circuit => {
 
@@ -14,7 +15,8 @@ object Measure {
         .runExperiment(circuit, trialsCount = trials)
         .stateStats
 
-      results.copy(stats = results.stats.filter { case (_, i) => i != 0 }).toHumanString
+       results
+      //results.copy(stats = results.stats.filter { case (_, i) => i != 0 }).toHumanString
     }
   }
 
@@ -25,9 +27,11 @@ object Measure {
       val measure = measureTimes(trials)
       val inputBasis: List[String] = allDichotomies(nQubits)
       val prepareStates: List[Circuit] = inputBasis.map(dichotomy => dichotomy.toBitRegister.toCircuit)
+      val filterStats: StateStats => String = results => results.copy(stats = results.stats.filter { case (_, i) => i != 0 }).toHumanString
+
       inputBasis.zip(prepareStates).map {
         case (dichotomy, pCircuit) =>
-          dichotomy -> measure(pCircuit combine circuit)
+          dichotomy -> filterStats(measure(pCircuit combine circuit))
       }.toMap
     }
   }

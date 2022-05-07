@@ -24,7 +24,18 @@ object BitRegisterFactory {
     }
   }
 
+  //TODO - Typeclass pattern to apply from e.g. String, Map[Int, Bit], etc.
+  //Also could use e.g. Int => BitRegister (sort of Reader monad) in toBitRegister, because not all types are
+  //enough to figure out number of qubits
   implicit class BitRegisterFrom(str: String) {
     def toBitRegister: BitRegister = BitRegister(str.map(c => Bit(c.asDigit)): _*)
+  }
+
+  implicit class BitRegisterSelect(registerParams: (Int, Map[Int, Bit])) {
+    def toBitRegister: BitRegister = {
+      val (nQubits, controlMap) = registerParams
+      val binaryBits: List[Bit] = List.tabulate(nQubits)(i => controlMap.getOrElse(i, Zero()))
+      BitRegister(binaryBits :_*)
+    }
   }
 }

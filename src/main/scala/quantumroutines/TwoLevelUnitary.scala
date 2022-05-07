@@ -7,13 +7,13 @@ import scotty.quantum.gate.DefGate
 import scotty.quantum.gate.StandardGate.X
 import scotty.quantum.{Bit, Circuit}
 import utils.BitRegisterFactory.{BitRegisterFrom, BitRegisterTo}
+import utils.paddedIntToBinary
 
 object TwoLevelUnitary extends App{
 
   def twoLevelUnitary(nQubits: Int)(edge1: Int, edge2: Int)(singleGate: Matrix): Circuit = {
     val List(bin1, bin2) = List(edge1, edge2).sorted.map{i =>
-       val binary: String = Integer.toBinaryString(i)
-       val paddedBinary: String = "0" * (nQubits - binary.length) + binary
+       val paddedBinary: String = paddedIntToBinary(nQubits)(i)
        paddedBinary.toBitRegister
       }
 

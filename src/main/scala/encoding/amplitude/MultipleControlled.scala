@@ -3,6 +3,7 @@ package encoding.amplitude
 import scotty.quantum.gate.StandardGate.X
 import scotty.quantum.gate._
 import scotty.quantum.{Bit, BitRegister, Zero}
+import utils.placeNOTs
 
 object MultipleControlled {
 
@@ -19,7 +20,7 @@ object MultipleControlled {
   val inverseControlled: ControlGate => CompositeGate =
     controlGate => {
       val cIndices: List[Int] = controlGateControlIndices(controlGate)
-      val nots: Array[Gate] = cIndices.map(idx => X(idx)).toArray
+      val nots: Array[Gate] = placeNOTs(cIndices).toArray
       val gates: Array[Gate] = (nots :+ controlGate) ++ nots
       CompositeGate(gates: _*)
     }
