@@ -36,6 +36,7 @@ object MultipleControlled {
         CompositeGate(gates: _*)
       }
 
+  //TODO - same as toControlMap in BitRegisterFactory!
   val dichotomyToControlMap: BitRegister => Map[Int, Bit] = dichotomy =>
     dichotomy.values.zipWithIndex.map{case (bit, idx) => (idx, bit)}.toMap
 }

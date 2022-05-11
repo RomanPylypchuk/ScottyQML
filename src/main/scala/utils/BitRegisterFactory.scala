@@ -7,6 +7,10 @@ import scotty.quantum.gate.StandardGate.X
 object BitRegisterFactory {
 
   implicit class BitRegisterTo(bitRegister: BitRegister) {
+
+    def toControlMap: Map[Int, Bit] =
+      bitRegister.values.zipWithIndex.map{case (bit, idx) => (idx, bit)}.toMap
+
     def toDecimal: Int = Integer.parseInt(this.toHumanString, 2)
 
     def toHumanString: String = bitRegister.values.map(_.toHumanString.head).mkString
@@ -24,7 +28,7 @@ object BitRegisterFactory {
     }
   }
 
-  //TODO - Typeclass pattern to apply from e.g. String, Map[Int, Bit], etc.
+  //TODO - Typeclass pattern to apply from e.g. String, Map[Int, Bit], etc. Or Codec + imap?
   //Also could use e.g. Int => BitRegister (sort of Reader monad) in toBitRegister, because not all types are
   //enough to figure out number of qubits
   implicit class BitRegisterFrom(str: String) {

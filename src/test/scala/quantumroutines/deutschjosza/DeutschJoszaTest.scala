@@ -4,7 +4,7 @@ import quantumroutines.deutschjosza.DeutschJosza.runDeutschJosza
 
 object DeutschJoszaTest extends App{
 
-  assert(runDeutschJosza(Oracle.ZeroOracle(3)) == Constant)
-  assert(runDeutschJosza(Oracle.OneOracle(3)) == Constant)
-  assert(runDeutschJosza(Oracle.BalancedOracle(3)) == Balanced)
+  assert(runDeutschJosza(CBOracle.ZeroOracle(3)) == Constant)
+  assert(runDeutschJosza(CBOracle.OneOracle(3)) == Constant)
+  assert(runDeutschJosza(CBOracle.BalancedOracle(3)) == Balanced)
 }

@@ -1,4 +1,4 @@
-package quantumroutines
+package utils
 
 import scotty.quantum.BitRegister
 import utils.BitRegisterFactory._

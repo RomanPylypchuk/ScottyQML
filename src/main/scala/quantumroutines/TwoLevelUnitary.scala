@@ -1,12 +1,12 @@
 package quantumroutines
 
 import encoding.amplitude.MultipleControlled.controlledConfigurationGate
-import quantumroutines.GrayCode.{differenceIndex, gray}
 import scotty.quantum.QuantumContext.Matrix
 import scotty.quantum.gate.DefGate
 import scotty.quantum.gate.StandardGate.X
 import scotty.quantum.{Bit, Circuit}
 import utils.BitRegisterFactory.{BitRegisterFrom, BitRegisterTo}
+import utils.GrayCode.{differenceIndex, gray}
 import utils.paddedIntToBinary
 
 object TwoLevelUnitary extends App{

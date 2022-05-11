@@ -1,18 +1,20 @@
 package quantumroutines.deutschjosza
 
-import scotty.quantum.gate.StandardGate.{CNOT, X}
+import quantumroutines.Oracle
+import scotty.quantum.gate.StandardGate.X
 import scotty.quantum.{Bit, Circuit, One, Zero}
 import utils.BitRegisterFactory._
+import utils.singlePlaceCNOTs
 
-sealed trait Oracle {
+sealed trait CBOracle extends Oracle{
   type oracleType <: ConstantOrBalanced
   def nOracleQubits: Int  //Number of input qubits to oracle
-  def oracle: Circuit
+  def oracle: Circuit //Perhaps refactor this as a function outside of Oracle, leaving it as pure ADT?
 }
 
-object Oracle{
+object CBOracle{
 
-  sealed trait ConstantOracle extends Oracle {
+  sealed trait ConstantOracle extends CBOracle {
     type oracleType = Constant.type
 
     def output: Bit
@@ -37,13 +39,13 @@ object Oracle{
   }
 
   //Could use type [A] and implicit `BitRegisterFrom` to instantiate input X configuration e.g. from String, Map[Int, Bit], etc.
-  final case class BalancedOracle(nOracleQubits: Int, balanceShift: Option[Map[Int, Bit]] = None) extends Oracle {
+  final case class BalancedOracle(nOracleQubits: Int, balanceShift: Option[Map[Int, Bit]] = None) extends CBOracle {
     type oracleType = Balanced.type
 
     def oracle: Circuit = {
       val shift: Option[Circuit] = balanceShift.map(cMap => (nOracleQubits, cMap).toBitRegister.toCircuit)
 
-      val cNOTs = (0 until nOracleQubits).map(CNOT(_, nOracleQubits))
+      val cNOTs = singlePlaceCNOTs((0 until nOracleQubits).map(_ -> nOracleQubits).toMap)
       val balancedInside: Circuit = Circuit(cNOTs: _*)
 
       shift.fold(balancedInside)(sCircuit => sCircuit combine balancedInside combine sCircuit)
