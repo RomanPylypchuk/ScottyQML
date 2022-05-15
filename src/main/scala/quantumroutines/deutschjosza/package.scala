@@ -6,8 +6,6 @@ package object deutschjosza {
   final case object Constant extends ConstantOrBalanced
   final case object Balanced extends ConstantOrBalanced
 
-  //TODO - How to implement measurement on a subset of qubits from bigger system of qubits???
-
   /*
   val testCircuit = Circuit(QubitRegister("00"), H(0))
   val qs = QuantumSimulator()

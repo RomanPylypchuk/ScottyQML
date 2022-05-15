@@ -3,8 +3,24 @@ package utils
 import scotty.quantum._
 import scotty.quantum.gate.Gate
 import scotty.quantum.gate.StandardGate.X
+import utils.algebra.BiCodec
+import utils.algebra.BiCodec.unitCodec
+import utils.algebra.Isomorphism.<=>
 
 object BitRegisterFactory {
+  type BitRegisterCodec[A] = BiCodec[A, BitRegister]
+
+  val bitRegisterUnit: BiCodec[BitRegister, BitRegister] = unitCodec[BitRegister]
+
+  implicit val stringBitRegister: BitRegisterCodec[String] = bitRegisterUnit.imap[String](
+    new (BitRegister <=> String){
+    def to: BitRegister => String = _.values.map(_.toHumanString.head).mkString
+    def from: String => BitRegister = str => BitRegister(str.map(c => Bit(c.asDigit)): _*)
+  })
+
+  //implicit val decimalBitRegister = stringBitRegister.imap2[Int, Int => BitRegister](
+  //  new (String <=> Int)
+  //)
 
   implicit class BitRegisterTo(bitRegister: BitRegister) {
 
@@ -28,7 +44,6 @@ object BitRegisterFactory {
     }
   }
 
-  //TODO - Typeclass pattern to apply from e.g. String, Map[Int, Bit], etc. Or Codec + imap?
   //Also could use e.g. Int => BitRegister (sort of Reader monad) in toBitRegister, because not all types are
   //enough to figure out number of qubits
   implicit class BitRegisterFrom(str: String) {

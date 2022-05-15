@@ -38,7 +38,7 @@ object CBOracle{
     def output: Bit = One()
   }
 
-  //Could use type [A] and implicit `BitRegisterFrom` to instantiate input X configuration e.g. from String, Map[Int, Bit], etc.
+  //TODO: Could use type [A] and implicit `BitRegisterFrom` to instantiate input X configuration e.g. from String, Map[Int, Bit], etc.
   final case class BalancedOracle(nOracleQubits: Int, balanceShift: Option[Map[Int, Bit]] = None) extends CBOracle {
     type oracleType = Balanced.type
 
