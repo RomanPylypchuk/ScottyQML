@@ -3,9 +3,9 @@ package utils
 import scotty.quantum._
 import scotty.quantum.gate.Gate
 import scotty.quantum.gate.StandardGate.X
-import utils.algebra.BiCodec
-import utils.algebra.BiCodec.unitCodec
 import utils.algebra.Isomorphism.<=>
+import utils.codec.BiCodec
+import utils.codec.BiCodec.unitCodec
 
 object BitRegisterFactory {
   type BitRegisterCodec[A] = BiCodec[A, BitRegister]
@@ -13,14 +13,29 @@ object BitRegisterFactory {
   val bitRegisterUnit: BiCodec[BitRegister, BitRegister] = unitCodec[BitRegister]
 
   implicit val stringBitRegister: BitRegisterCodec[String] = bitRegisterUnit.imap[String](
-    new (BitRegister <=> String){
+    BiCodec(new (BitRegister <=> String){
     def to: BitRegister => String = _.values.map(_.toHumanString.head).mkString
     def from: String => BitRegister = str => BitRegister(str.map(c => Bit(c.asDigit)): _*)
-  })
+   })
+  )
 
-  //implicit val decimalBitRegister = stringBitRegister.imap2[Int, Int => BitRegister](
-  //  new (String <=> Int)
-  //)
+  val stringToIntCodec: BiCodec[String, Int] = new BiCodec[String, Int] {
+    def f: String <=> Int = new (String <=> Int){
+      def to: String => Int = _.toInt
+      def from: Int => String = _.toString
+    }
+  }
+
+  /*implicit val decimalBitRegister = stringBitRegister.imap2[Int, Int => BitRegister](
+    stringToIntCodec,
+    new BiCodec[BitRegister, Int => BitRegister]{
+      def f: BitRegister <=> (Int => BitRegister) = new (BitRegister <=> (Int => BitRegister)){
+        def to: BitRegister => Int => BitRegister = br => nQubits =>
+          padLeft(nQubits)(br.toHumanString)
+        def from: (Int => BitRegister) => BitRegister = ???
+      }
+    }
+  )*/
 
   implicit class BitRegisterTo(bitRegister: BitRegister) {
 

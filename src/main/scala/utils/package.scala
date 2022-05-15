@@ -4,13 +4,15 @@ import utils.MathOps.CrossOps
 package object utils {
   val bits = List(0, 1)
 
-  val paddedIntToBinary: Int => Int => String = {
-    nQubits =>
-     i =>
-     val binary = Integer.toBinaryString(i)
-     val paddedBinary: String = "0" * (nQubits - binary.length) + binary
-     paddedBinary
+  val padLeft: Int => String => String = {
+    n =>
+      str =>
+        "0" * (n - str.length) + str
   }
+
+  val paddedIntToBinary: Int => Int => String =
+    nQubits =>
+     padLeft(nQubits) compose Integer.toBinaryString
 
   def allDichotomies(qubitN: Int): List[String] = (bits naryCross qubitN).map(_.mkString)
 
