@@ -1,7 +1,9 @@
 package utils
 
 import scotty.quantum.BitRegister
-import utils.BitRegisterFactory._
+import utils.BitRegisterFactory.stringBitRegister
+import utils.codec.BiCodec.BiCodecSyntax
+
 
 object GrayCode {
 
@@ -17,7 +19,7 @@ object GrayCode {
         bin1Next :: grayRecur(bin1Next, bin2)
       }
     }
-    val greyInverted = grayRecur(binary1.toHumanString.reverse, binary2.toHumanString.reverse)
-    binary1 :: greyInverted.map(_.reverse.toBitRegister)
+    val greyInverted = grayRecur(binary1.decode[String].reverse, binary2.decode[String].reverse)
+    binary1 :: greyInverted.map(_.reverse.encode[BitRegister])
   }
 }

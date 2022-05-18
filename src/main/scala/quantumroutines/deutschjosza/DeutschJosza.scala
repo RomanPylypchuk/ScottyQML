@@ -3,9 +3,10 @@ package quantumroutines.deutschjosza
 import scotty.quantum.ExperimentResult.StateStats
 import scotty.quantum.gate.StandardGate.{H, X}
 import scotty.quantum.{BitRegister, Circuit}
-import utils.BitRegisterFactory.BitRegisterFrom
+import utils.BitRegisterFactory.stringBitRegister
 import utils.HTensor
 import utils.Measure.{StateStatsOps, measureTimes}
+import utils.codec.BiCodec.BiCodecSyntax
 
 object DeutschJosza {
 
@@ -42,7 +43,7 @@ object DeutschJosza {
     val allQubitsStats: StateStats = measureTimes(1000)(dj)
     val neededQubitsStats: StateStats = allQubitsStats.exceptQubits(Set(function.nOracleQubits))
     val statsMap = neededQubitsStats.stats.map{case (bitRegister: BitRegister, times) => bitRegister -> times.toDouble / 1000}.toMap
-    val allZerosRatio: Double = statsMap(("0" * function.nOracleQubits).toBitRegister)
+    val allZerosRatio: Double = statsMap(("0" * function.nOracleQubits).encode[BitRegister])
     if (allZerosRatio > threshold) Constant else Balanced
   }
 

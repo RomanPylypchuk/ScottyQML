@@ -2,8 +2,9 @@ package quantumroutines.deutschjosza
 
 import quantumroutines.Oracle
 import scotty.quantum.gate.StandardGate.X
-import scotty.quantum.{Bit, Circuit, One, Zero}
-import utils.BitRegisterFactory._
+import scotty.quantum._
+import utils.BitRegisterFactory.{BitRegisterTo, controlMapBitRegister}
+import utils.codec.BiCodec.BiCodecSyntax
 import utils.singlePlaceCNOTs
 
 sealed trait CBOracle extends Oracle{
@@ -43,7 +44,7 @@ object CBOracle{
     type oracleType = Balanced.type
 
     def oracle: Circuit = {
-      val shift: Option[Circuit] = balanceShift.map(cMap => (nOracleQubits, cMap).toBitRegister.toCircuit)
+      val shift: Option[Circuit] = balanceShift.map(cMap => cMap.encodeE[Int, BitRegister](nOracleQubits).toCircuit)
 
       val cNOTs = singlePlaceCNOTs((0 until nOracleQubits).map(_ -> nOracleQubits).toMap)
       val balancedInside: Circuit = Circuit(cNOTs: _*)

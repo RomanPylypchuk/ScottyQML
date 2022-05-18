@@ -3,7 +3,8 @@ package utils
 import scotty.quantum.ExperimentResult.StateStats
 import scotty.quantum.{BitRegister, Circuit}
 import scotty.simulator.QuantumSimulator
-import utils.BitRegisterFactory.{BitRegisterFrom, BitRegisterTo}
+import utils.BitRegisterFactory.{BitRegisterTo, stringBitRegister}
+import utils.codec.BiCodec.BiCodecSyntax
 
 object Measure {
 
@@ -46,7 +47,7 @@ object Measure {
       val nQubits = circuit.register.size
       val measure = measureTimes(trials)
       val inputBasis: List[String] = allDichotomies(nQubits)
-      val prepareStates: List[Circuit] = inputBasis.map(dichotomy => dichotomy.toBitRegister.toCircuit)
+      val prepareStates: List[Circuit] = inputBasis.map(dichotomy => dichotomy.encode[BitRegister].toCircuit)
       val filterStats: StateStats => String = results => results.copy(stats = results.stats.filter { case (_, i) => i != 0 }).toHumanString
 
       inputBasis.zip(prepareStates).map {
