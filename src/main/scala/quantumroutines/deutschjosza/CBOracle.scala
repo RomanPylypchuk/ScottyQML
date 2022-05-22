@@ -1,8 +1,8 @@
 package quantumroutines.deutschjosza
 
-import quantumroutines.Oracle
-import scotty.quantum.gate.StandardGate.X
+import quantumroutines.oracle.Oracle
 import scotty.quantum._
+import scotty.quantum.gate.StandardGate.X
 import utils.BitRegisterFactory.{BitRegisterTo, controlMapBitRegister}
 import utils.codec.BiCodec.BiCodecSyntax
 import utils.singlePlaceCNOTs

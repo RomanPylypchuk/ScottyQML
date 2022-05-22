@@ -1,4 +1,4 @@
-package quantumroutines
+package quantumroutines.oracle
 
 import scotty.quantum.Circuit
 

@@ -19,7 +19,7 @@ object TwoLevelUnitaryTest extends App{
    */
 
   val twoLevelU = twoLevelUnitary(3)(0, 7)(H(0).matrix)
-  val measurements = measureForAllInputDichotomies(1000)(twoLevelU)
+  val measurements = measureForAllInputDichotomies(1000)(None)(None)(twoLevelU)
   println(measurements)
 
 

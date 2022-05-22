@@ -58,6 +58,7 @@ object BitRegisterFactory {
 
     def toHumanString: String = bitRegister.values.map(_.toHumanString.head).mkString*/
 
+    //TODO - is it possible to implement this via BiCodec?
     def toCircuit: Circuit = {
       val nQubits = bitRegister.size
       if (bitRegister.values.forall(_ == Zero()))

@@ -1,29 +1,45 @@
 package utils
 
 import scotty.quantum.ExperimentResult.StateStats
-import scotty.quantum.{BitRegister, Circuit}
+import scotty.quantum._
 import scotty.simulator.QuantumSimulator
 import utils.BitRegisterFactory.{BitRegisterTo, stringBitRegister}
 import utils.codec.BiCodec.BiCodecSyntax
 
 object Measure {
 
+  val projectDichotomyBits: Set[Int] => BitRegister => BitRegister = {
+    qubits =>
+      bitRegister =>
+        val nQubits = bitRegister.size
+        val reducedBitValues = bitRegister.values.zipWithIndex.collect { case (bit, idx) if qubits(nQubits - 1 - idx) => bit }
+        BitRegister(reducedBitValues: _*)
+  }
+
+  val embedDichotomyBits: Int => Set[Int] => BitRegister => BitRegister =
+    eQubits => {
+      val emptyE: List[Bit] = List.fill(eQubits)(Zero())
+      qubits => {
+        val sQubits: List[Int] = qubits.toList.sorted
+        bitRegister => {
+          val updates: List[(Int, Bit)] = sQubits.zip(bitRegister.values)
+          val embedded = updates.foldLeft(emptyE) {
+            case (eb, (idx, One(_))) => eb.updated(idx, One())
+            case (eb, _) => eb
+          }
+          BitRegister(embedded: _*)
+        }
+      }
+    }
+
   implicit class StateStatsOps(val measurements: StateStats) {
 
     private def nQubits: Int = measurements.stats.head._1.size
 
     def forQubits(qubits: Set[Int]): StateStats = {
-
-      val projectBits: BitRegister => BitRegister = {
-        bitRegister =>
-
-          val reducedBitValues = bitRegister.values.reverse.zipWithIndex.collect{case (bit, idx) if qubits(idx) => bit}
-          BitRegister(reducedBitValues :_*)
-      }
-
       val stats = measurements.stats
-      val reducedDichotomies = stats.map{case (fullDichotomy, times) => projectBits(fullDichotomy) -> times}
-      val reducedStats: Map[BitRegister, Int] = reducedDichotomies.groupMapReduce{case (dichotomy, _) => dichotomy}{case (_, times) => times}(_ + _)
+      val reducedDichotomies = stats.map { case (fullDichotomy, times) => projectDichotomyBits(qubits)(fullDichotomy) -> times }
+      val reducedStats: Map[BitRegister, Int] = reducedDichotomies.groupMapReduce { case (dichotomy, _) => dichotomy } { case (_, times) => times }(_ + _)
       StateStats(reducedStats.toList)
     }
 
@@ -32,29 +48,43 @@ object Measure {
 
   val measureTimes: Int => Circuit => StateStats = {
     trials =>
-     circuit => {
+      circuit => {
 
-      val results = QuantumSimulator()
-        .runExperiment(circuit, trialsCount = trials)
-        .stateStats
-       results
-    }
+        val results = QuantumSimulator()
+          .runExperiment(circuit, trialsCount = trials)
+          .stateStats
+        results
+      }
   }
 
-  val measureForAllInputDichotomies: Int => Circuit => Map[String, String] = {
-    trials =>
-     circuit => {
-      val nQubits = circuit.register.size
-      val measure = measureTimes(trials)
-      val inputBasis: List[String] = allDichotomies(nQubits)
-      val prepareStates: List[Circuit] = inputBasis.map(dichotomy => dichotomy.encode[BitRegister].toCircuit)
-      val filterStats: StateStats => String = results => results.copy(stats = results.stats.filter { case (_, i) => i != 0 }).toHumanString
 
-      inputBasis.zip(prepareStates).map {
-        case (dichotomy, pCircuit) =>
-          dichotomy -> filterStats(measure(pCircuit combine circuit))
-      }.toMap
-    }
+  //val filterStats: StateStats => String = results => results.copy(stats = results.stats.filter { case (_, i) => i != 0 }).toHumanString
+  val filterStats: StateStats => StateStats = results => results.copy(stats = results.stats.filter { case (_, i) => i != 0 })
+
+  //TODO - parallelize measuring for each dichotomy, e.g. via Future
+  val measureForAllInputDichotomies:
+    Int => Option[Set[Int]] => Option[Set[Int]] =>
+      Circuit => Map[String, StateStats] = {
+    trials =>
+      maybeDQubits =>
+        maybeMQubits =>
+          circuit => {
+            val nQubits = circuit.register.size
+            val measure = measureTimes(trials)
+            val embedDichotomy: BitRegister => BitRegister =
+              maybeDQubits.fold(identity[BitRegister] _)(dQubits => embedDichotomyBits(nQubits)(dQubits))
+
+            val inputBasis: List[String] = allDichotomies(maybeDQubits.fold(nQubits)(_.size))
+            val prepareStates: List[Circuit] = inputBasis.map(dichotomy => embedDichotomy(dichotomy.encode[BitRegister]).toCircuit)
+
+            val rawMeasurements = inputBasis.zip(prepareStates).map {
+              case (dichotomy, pCircuit) =>
+                dichotomy -> filterStats(measure(pCircuit combine circuit))
+            }.toMap
+
+            maybeMQubits.fold(rawMeasurements)(mQubits =>
+              rawMeasurements.map { case (dichotomy, fullStats) => dichotomy -> fullStats.forQubits(mQubits) })
+          }
   }
 
 }
