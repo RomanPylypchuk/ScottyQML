@@ -1,4 +1,4 @@
-package utils
+package utils.factory
 
 import cats.data.Reader
 import scotty.quantum._
@@ -7,6 +7,7 @@ import scotty.quantum.gate.StandardGate.X
 import utils.algebra.Isomorphism.<=>
 import utils.codec.BiCodec
 import utils.codec.BiCodec.unitCodec
+import utils.paddedIntToBinary
 
 object BitRegisterFactory {
   type BitRegisterCodec[A] = BiCodec[A, BitRegister]
@@ -19,6 +20,17 @@ object BitRegisterFactory {
 
       def from: String => BitRegister = str => BitRegister(str.map(c => Bit(c.asDigit)): _*)
     })
+  )
+
+  implicit val bitBitRegister: BitRegisterCodec[List[Int]] = stringBitRegister.map[List[Int]](
+    BiCodec(
+      new (String <=> List[Int]){
+        def to: String => List[Int] = _.map{
+          case '0' => 0
+          case '1' => 1}.toList
+        def from: List[Int] => String = _.mkString
+      }
+    )
   )
 
   implicit val decimalBitRegister: Reader[Int, BitRegisterCodec[Int]] = stringBitRegister.emap[Int, Int](
@@ -51,13 +63,6 @@ object BitRegisterFactory {
 
   implicit class BitRegisterTo(bitRegister: BitRegister) {
 
-    /*def toControlMap: Map[Int, Bit] =
-      bitRegister.values.zipWithIndex.map { case (bit, idx) => (idx, bit) }.toMap
-
-    def toDecimal: Int = Integer.parseInt(this.toHumanString, 2)
-
-    def toHumanString: String = bitRegister.values.map(_.toHumanString.head).mkString*/
-
     //TODO - is it possible to implement this via BiCodec?
     def toCircuit: Circuit = {
       val nQubits = bitRegister.size
@@ -72,17 +77,4 @@ object BitRegisterFactory {
     }
   }
 
-  //Also could use e.g. Int => BitRegister (sort of Reader monad) in toBitRegister, because not all types are
-  //enough to figure out number of qubits
-  /*implicit class BitRegisterFrom(str: String) {
-    def toBitRegister: BitRegister = BitRegister(str.map(c => Bit(c.asDigit)): _*)
-  }*/
-
-  /*implicit class BitRegisterSelect(registerParams: (Int, Map[Int, Bit])) {
-    def toBitRegister: BitRegister = {
-      val (nQubits, controlMap) = registerParams
-      val binaryBits: List[Bit] = List.tabulate(nQubits)(i => controlMap.getOrElse(i, Zero()))
-      BitRegister(binaryBits: _*)
-    }
-  }*/
 }

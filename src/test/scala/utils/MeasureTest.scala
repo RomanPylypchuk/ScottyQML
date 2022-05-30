@@ -2,9 +2,9 @@ package utils
 
 import scotty.quantum.gate.StandardGate.{CNOT, H}
 import scotty.quantum.{BitRegister, Circuit}
-import utils.BitRegisterFactory.stringBitRegister
 import utils.Measure.{StateStatsOps, embedDichotomyBits, measureTimes}
 import utils.codec.BiCodec.BiCodecSyntax
+import utils.factory.BitRegisterFactory.stringBitRegister
 
 
 object MeasureTest extends App{

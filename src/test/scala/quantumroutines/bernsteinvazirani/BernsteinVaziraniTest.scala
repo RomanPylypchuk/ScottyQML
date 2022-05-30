@@ -1,13 +1,14 @@
 package quantumroutines.bernsteinvazirani
 
-import quantumroutines.bersteinvazirani.BernsteinVazirani.runBernsteinVazirani
-import quantumroutines.bersteinvazirani.InnerProductOracle
+import quantumroutines.elementary.algorithms.BernsteinVazirani
+import quantumroutines.oracle.instances.InnerProductOracle
 import scotty.quantum.BitRegister
-import utils.BitRegisterFactory.stringBitRegister
 import utils.codec.BiCodec.BiCodecSyntax
+import utils.factory.BitRegisterFactory.stringBitRegister
 
 object BernsteinVaziraniTest extends App{
-  val oracleBinary = "011".encode[BitRegister]
+  val oracleBinary = "001".encode[BitRegister]
   val iOracle = InnerProductOracle(3, oracleBinary)
-  assert(runBernsteinVazirani(iOracle) == oracleBinary)
+  val oracleBitString = BernsteinVazirani.run(1000)(iOracle)
+  assert(BitRegister(oracleBitString.b.values.reverse :_*) == oracleBinary)
 }

@@ -5,10 +5,10 @@ import scotty.quantum.gate.StandardGate.RY
 import scotty.quantum.gate.{CompositeGate, Gate}
 import scotty.quantum.math.Complex
 import scotty.quantum.{BitRegister, Superposition}
-import utils.BitRegisterFactory.stringBitRegister
 import utils.MathOps.CrossOps
 import utils.bits
 import utils.codec.BiCodec.BiCodecSyntax
+import utils.factory.BitRegisterFactory.stringBitRegister
 
 object MultiControlledRotations {
 

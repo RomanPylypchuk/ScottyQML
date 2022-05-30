@@ -1,8 +1,8 @@
 package utils
 
 import scotty.quantum.BitRegister
-import utils.BitRegisterFactory.stringBitRegister
 import utils.codec.BiCodec.BiCodecSyntax
+import utils.factory.BitRegisterFactory.stringBitRegister
 
 
 object GrayCode {

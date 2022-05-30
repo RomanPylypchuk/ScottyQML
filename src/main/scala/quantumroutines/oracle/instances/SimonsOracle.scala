@@ -1,13 +1,15 @@
-package quantumroutines.simons
+package quantumroutines.oracle.instances
 
 import quantumroutines.oracle.{HasBitString, Oracle}
 import scotty.quantum.gate.StandardGate.CNOT
 import scotty.quantum.{Bit, BitRegister, Circuit, One}
-import utils.BitRegisterFactory.controlMapBitRegister
 import utils.codec.BiCodec.BiCodecSyntax
+import utils.factory.BitRegisterFactory.controlMapBitRegister
 import utils.{placeCNOTs, singlePlaceCNOTs}
 
-sealed trait SimonsOracle extends Oracle
+sealed trait SimonsOracle extends Oracle{
+  //type OutputType = VectorOutput
+}
 
 object SimonsOracle {
   val copyToSecondRegister: Int => Circuit = {

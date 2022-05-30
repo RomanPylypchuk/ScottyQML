@@ -1,21 +1,22 @@
 package quantumroutines.deutschjosza
 
+import quantumroutines.oracle.instances.DeutschJoszaOracle
 import scotty.quantum.gate.StandardGate.X
 import scotty.quantum.gate.TargetGate
 import scotty.quantum.gate.TargetGate.MatrixGen
 import scotty.quantum.{Circuit, One}
 
 object CBOracleTest extends App{
-  val zeroOracle = CBOracle.ZeroOracle(3)
+  val zeroOracle = DeutschJoszaOracle.ZeroOracle(3)
   println(zeroOracle.oracle)
 
-  val oneOracle = CBOracle.OneOracle(3)
+  val oneOracle = DeutschJoszaOracle.OneOracle(3)
   println(oneOracle.oracle)
 
-  val balancedOracle1 = CBOracle.BalancedOracle(3)
+  val balancedOracle1 = DeutschJoszaOracle.BalancedOracle(3)
   println(balancedOracle1.oracle)
 
-  val balancedOracle2 = CBOracle.BalancedOracle(3, Some(Map(0 -> One(), 2 -> One())))
+  val balancedOracle2 = DeutschJoszaOracle.BalancedOracle(3, Some(Map(0 -> One(), 2 -> One())))
   println(balancedOracle2.oracle)
 
   val xMod = X(0).copy(index = 4)

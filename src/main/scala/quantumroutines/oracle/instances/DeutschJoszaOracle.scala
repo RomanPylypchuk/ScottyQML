@@ -1,23 +1,22 @@
-package quantumroutines.deutschjosza
+package quantumroutines.oracle.instances
 
 import quantumroutines.oracle.Oracle
 import scotty.quantum._
 import scotty.quantum.gate.StandardGate.X
-import utils.BitRegisterFactory.{BitRegisterTo, controlMapBitRegister}
 import utils.codec.BiCodec.BiCodecSyntax
+import utils.factory.BitRegisterFactory.{BitRegisterTo, controlMapBitRegister}
 import utils.singlePlaceCNOTs
 
-sealed trait CBOracle extends Oracle{
-  type oracleType <: ConstantOrBalanced
+sealed trait DeutschJoszaOracle extends Oracle{
+  //type OutputType = ScalarOutput
   def nOracleQubits: Int  //Number of input qubits to oracle
   def oracle: Circuit //Perhaps refactor this as a function outside of Oracle, leaving it as pure ADT?
 }
 
-object CBOracle{
+object DeutschJoszaOracle{
 
-  sealed trait ConstantOracle extends CBOracle {
-    type oracleType = Constant.type
-
+  sealed trait ConstantOracle extends DeutschJoszaOracle {
+    //type OutputType = Constant.type
     def output: Bit
 
     def oracle: Circuit =
@@ -40,8 +39,8 @@ object CBOracle{
   }
 
   //TODO: Could use type [A] and implicit `BitRegisterFrom` to instantiate input X configuration e.g. from String, Map[Int, Bit], etc.
-  final case class BalancedOracle(nOracleQubits: Int, balanceShift: Option[Map[Int, Bit]] = None) extends CBOracle {
-    type oracleType = Balanced.type
+  final case class BalancedOracle(nOracleQubits: Int, balanceShift: Option[Map[Int, Bit]] = None) extends DeutschJoszaOracle {
+    //type OutputType = Balanced.type
 
     def oracle: Circuit = {
       val shift: Option[Circuit] = balanceShift.map(cMap => cMap.encodeE[Int, BitRegister](nOracleQubits).toCircuit)

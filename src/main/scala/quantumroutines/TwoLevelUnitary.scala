@@ -5,9 +5,9 @@ import scotty.quantum.QuantumContext.Matrix
 import scotty.quantum.gate.DefGate
 import scotty.quantum.gate.StandardGate.X
 import scotty.quantum.{Bit, BitRegister, Circuit}
-import utils.BitRegisterFactory.stringBitRegister
 import utils.GrayCode.{differenceIndex, gray}
 import utils.codec.BiCodec.BiCodecSyntax
+import utils.factory.BitRegisterFactory.stringBitRegister
 import utils.paddedIntToBinary
 
 object TwoLevelUnitary extends App{

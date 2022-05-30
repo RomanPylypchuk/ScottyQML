@@ -3,8 +3,8 @@ package utils
 import scotty.quantum.ExperimentResult.StateStats
 import scotty.quantum._
 import scotty.simulator.QuantumSimulator
-import utils.BitRegisterFactory.{BitRegisterTo, stringBitRegister}
 import utils.codec.BiCodec.BiCodecSyntax
+import utils.factory.BitRegisterFactory.{BitRegisterTo, stringBitRegister}
 
 object Measure {
 
@@ -39,7 +39,8 @@ object Measure {
     def forQubits(qubits: Set[Int]): StateStats = {
       val stats = measurements.stats
       val reducedDichotomies = stats.map { case (fullDichotomy, times) => projectDichotomyBits(qubits)(fullDichotomy) -> times }
-      val reducedStats: Map[BitRegister, Int] = reducedDichotomies.groupMapReduce { case (dichotomy, _) => dichotomy } { case (_, times) => times }(_ + _)
+      val reducedStats: Map[BitRegister, Int] =
+        reducedDichotomies.groupMapReduce { case (dichotomy, _) => dichotomy } { case (_, times) => times }(_ + _)
       StateStats(reducedStats.toList)
     }
 
@@ -57,9 +58,6 @@ object Measure {
       }
   }
 
-
-  //val filterStats: StateStats => String = results => results.copy(stats = results.stats.filter { case (_, i) => i != 0 }).toHumanString
-  val filterStats: StateStats => StateStats = results => results.copy(stats = results.stats.filter { case (_, i) => i != 0 })
 
   //TODO - parallelize measuring for each dichotomy, e.g. via Future
   val measureForAllInputDichotomies:
@@ -86,5 +84,8 @@ object Measure {
               rawMeasurements.map { case (dichotomy, fullStats) => dichotomy -> fullStats.forQubits(mQubits) })
           }
   }
+
+  //val filterStats: StateStats => String = results => results.copy(stats = results.stats.filter { case (_, i) => i != 0 }).toHumanString
+  val filterStats: StateStats => StateStats = results => results.copy(stats = results.stats.filter { case (_, i) => i != 0 })
 
 }

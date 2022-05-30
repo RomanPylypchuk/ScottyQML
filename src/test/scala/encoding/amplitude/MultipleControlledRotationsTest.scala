@@ -3,7 +3,7 @@ package encoding.amplitude
 import encoding.amplitude.MultiControlledRotations.{RYAngles, amplitudeEncodeCascade}
 import scotty.quantum.{Circuit, QubitRegister, StateProbabilityReader, Superposition}
 import scotty.simulator.QuantumSimulator
-import utils.SuperpositionFactory
+import utils.factory.SuperpositionFactory
 
 import scala.concurrent.ExecutionContext
 

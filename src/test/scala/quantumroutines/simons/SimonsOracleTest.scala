@@ -1,10 +1,10 @@
 package quantumroutines.simons
 
-import quantumroutines.simons.SimonsOracle.{IdentityOracle, RandomOneToOne, TwoToOneOracle}
+import quantumroutines.oracle.instances.SimonsOracle._
 import scotty.quantum.{BitRegister, Circuit}
-import utils.BitRegisterFactory.stringBitRegister
 import utils.Measure.measureForAllInputDichotomies
 import utils.codec.BiCodec.BiCodecSyntax
+import utils.factory.BitRegisterFactory.stringBitRegister
 
 object SimonsOracleTest extends App{
 

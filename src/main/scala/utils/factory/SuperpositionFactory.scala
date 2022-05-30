@@ -1,4 +1,4 @@
-package utils
+package utils.factory
 
 import breeze.linalg.{DenseMatrix, DenseVector, Transpose}
 import scotty.quantum.{QubitRegister, Superposition}
