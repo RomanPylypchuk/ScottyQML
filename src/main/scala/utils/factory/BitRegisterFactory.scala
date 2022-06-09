@@ -17,7 +17,6 @@ object BitRegisterFactory {
   implicit val stringBitRegister: BitRegisterCodec[String] = bitRegisterUnit.map[String](
     BiCodec(new (BitRegister <=> String) {
       def to: BitRegister => String = _.values.map(_.toHumanString.head).mkString
-
       def from: String => BitRegister = str => BitRegister(str.map(c => Bit(c.asDigit)): _*)
     })
   )

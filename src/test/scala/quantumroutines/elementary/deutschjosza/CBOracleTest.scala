@@ -1,4 +1,4 @@
-package quantumroutines.deutschjosza
+package quantumroutines.elementary.deutschjosza
 
 import quantumroutines.oracle.instances.DeutschJoszaOracle
 import scotty.quantum.gate.StandardGate.X

@@ -1,4 +1,4 @@
-package quantumroutines.simons
+package quantumroutines.elementary.simons
 
 import quantumroutines.elementary.algorithms.Simons
 import quantumroutines.oracle.instances.SimonsOracle

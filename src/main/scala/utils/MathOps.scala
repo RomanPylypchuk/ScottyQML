@@ -3,8 +3,8 @@ package utils
 object MathOps {
 
   //Inverse isomap
-  def inverseMap[K,V](directMap: Map[K,V]): Map[V,K] =
-    directMap.map{case (k, v) => (v,k)}
+  def inverseMap[K, V](directMap: Map[K, V]): Map[V, K] =
+    directMap.map { case (k, v) => (v, k) }
 
   //Filtered Cartesian product
   def crossJoin[T](list: List[List[T]],
@@ -22,8 +22,12 @@ object MathOps {
     }
   }
 
-  implicit class CrossOps[T](items: List[T]){
+  implicit class CrossOps[T](items: List[T]) {
     def naryCross(n: Int): List[List[T]] = crossJoin(List.fill(n)(items))
   }
 
+  def zip[A,B](pair: Tuple2[Array[A], Array[B]]): Array[(A,B)] = {
+    val (xs, ys) = pair
+    xs.zip(ys)
+  }
 }

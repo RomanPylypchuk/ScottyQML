@@ -1,4 +1,4 @@
-package quantumroutines.deutschjosza
+package quantumroutines.elementary.deutschjosza
 
 import quantumroutines.elementary.algorithms.DeutschJosza
 import quantumroutines.oracle.OracleOutput.{Balanced, Constant}

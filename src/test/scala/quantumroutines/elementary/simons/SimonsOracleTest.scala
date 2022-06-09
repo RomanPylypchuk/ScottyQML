@@ -1,4 +1,4 @@
-package quantumroutines.simons
+package quantumroutines.elementary.simons
 
 import quantumroutines.oracle.instances.SimonsOracle._
 import scotty.quantum.{BitRegister, Circuit}

@@ -1,4 +1,4 @@
-package quantumroutines.bernsteinvazirani
+package quantumroutines.elementary.bernsteinvazirani
 
 import quantumroutines.elementary.algorithms.BernsteinVazirani
 import quantumroutines.oracle.instances.InnerProductOracle
