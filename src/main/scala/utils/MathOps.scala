@@ -1,5 +1,7 @@
 package utils
 
+import spire.math.Rational
+
 object MathOps {
 
   //Inverse isomap
@@ -26,8 +28,19 @@ object MathOps {
     def naryCross(n: Int): List[List[T]] = crossJoin(List.fill(n)(items))
   }
 
-  def zip[A,B](pair: Tuple2[Array[A], Array[B]]): Array[(A,B)] = {
+  def zip[A, B](pair: Tuple2[Array[A], Array[B]]): Array[(A, B)] = {
     val (xs, ys) = pair
     xs.zip(ys)
+  }
+
+  def continuedFractions(x: Rational): List[Long] = {
+    if (x.isWhole) x.longValue :: Nil
+    else {
+      val remainder: Rational = x - x.longValue
+      if (remainder.numerator == 1)
+        x.longValue :: remainder.denominator.longValue :: Nil
+      else
+        x.intValue :: continuedFractions(remainder.inverse)
+    }
   }
 }
