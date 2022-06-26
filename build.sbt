@@ -17,7 +17,12 @@ libraryDependencies ++= Seq(
 
   "org.typelevel" %% "cats-core" % "2.1.0",
 
-  "org.typelevel" %% "spire" % "0.17.0"
+  "org.typelevel" %% "spire" % "0.17.0",
+
+  "org.nd4j" % "nd4j-api" % "1.0.0-M2",
+  "org.nd4j" % "nd4j-native" % "1.0.0-M2"
+
+  //"org.nd4j" % "nd4j-backends" % "1.0.0-M2"
   //"com.github.danielkorzekwa" %% "bayes-scala" % "0.7-SNAPSHOT"
 )
 
