@@ -1,7 +1,6 @@
 package quantumroutines.qft
 
 import scotty.quantum.Circuit
-import scotty.quantum.gate.{Controlled, Gate}
 import utils.HTensor
 
 object PhaseEstimation {
@@ -14,15 +13,23 @@ object PhaseEstimation {
         initMinusX combine Circuit(HTensor(nPhaseQubits): _*)
       }
 
-  def controlBlock: Int => (Int => Gate) => Circuit =
+  def controlBlock: Int => ((Int, Int) => Circuit) => Circuit =
     nPhaseQubits =>
-     uPowerGen =>
+     cUPower2Gen => //Here control index, then j in U^(2^j)
     {
       val controlledUs = (0 until nPhaseQubits).map{cIdx =>
-        Controlled(cIdx, uPowerGen(math.pow(2, nPhaseQubits - cIdx - 1).toInt))
+        cUPower2Gen(cIdx, nPhaseQubits - cIdx - 1)
       }
-      Circuit(controlledUs :_*)
+      controlledUs.reduceLeft(_ combine _)
     }
 
-
+  val phaseEstimate: Int => Int => ((Int, Int) => Circuit) => Circuit = {
+    nPhaseQubits =>
+      val pre = preCircuit(nPhaseQubits)
+      val cBlock = controlBlock(nPhaseQubits)
+      val inverseQft = QFT.inverseQftCircuit(nPhaseQubits)
+      nEigenQubits =>
+       uPowerGen =>
+         pre(nEigenQubits) combine cBlock(uPowerGen) combine inverseQft
+  }
 }

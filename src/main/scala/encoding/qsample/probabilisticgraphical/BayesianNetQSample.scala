@@ -1,7 +1,7 @@
 package encoding.qsample.probabilisticgraphical
 
 import encoding.amplitude.MultipleControlled.controlledConfigurationGate
-import models.pgms.bayesian.BayesianModel
+import models.pgms.bayesian.BayesianNet
 import models.pgms.bayesian.NodeDistribution.{IndependentPD, TabularCPD}
 import org.nd4j.linalg.api.ndarray.INDArray
 import scotty.quantum.gate.Gate
@@ -13,9 +13,9 @@ import utils.bits
 object BayesianNetQSample {
 
   val probabilityToAngle: Double => Double =
-    probabilityOne => 2.0 * math.asin(probabilityOne)
+    probabilityOne => 2.0 * math.asin(math.sqrt(probabilityOne))
 
-  val encode: BayesianModel => Circuit = {
+  val encode: BayesianNet => Circuit = {
     bNet =>
       val gates = bNet.varSeq.flatMap {
 

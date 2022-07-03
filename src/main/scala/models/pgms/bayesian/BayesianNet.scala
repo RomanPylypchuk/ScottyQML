@@ -3,7 +3,7 @@ package models.pgms.bayesian
 import models.pgms.Node
 
 
-case class BayesianModel(varSeq: List[NodeDistribution]){
+case class BayesianNet(varSeq: List[NodeDistribution]){
 
   def nodeNumber: Map[Node, Int] = varSeq.map(_.variable).zipWithIndex.toMap
   def allNodes: Set[Node] = varSeq.map(_.variable).toSet

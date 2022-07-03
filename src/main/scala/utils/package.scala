@@ -2,7 +2,11 @@ import scotty.quantum.gate.StandardGate.{CNOT, H, X}
 import utils.MathOps.CrossOps
 
 package object utils {
-  val bits = List(0, 1)
+  val bits: List[Int] = List(0, 1)
+
+  val logBase: Int => Double => Double =
+    n =>
+      x => math.log(x) / math.log(n)
 
   val padLeft: Int => String => String = {
     n =>
