@@ -1,6 +1,9 @@
 package utils
 
+import cats.data.Reader
 import spire.math.Rational
+import utils.algebra.Isomorphism.<=>
+import utils.codec.BiCodec
 
 object MathOps {
 
@@ -33,14 +36,33 @@ object MathOps {
     xs.zip(ys)
   }
 
-  def continuedFractions(x: Rational): List[Long] = {
-    if (x.isWhole) x.longValue :: Nil
-    else {
-      val remainder: Rational = x - x.longValue
-      if (remainder.numerator == 1)
-        x.longValue :: remainder.denominator.longValue :: Nil
-      else
-        x.intValue :: continuedFractions(remainder.inverse)
-    }
-  }
+  implicit val rationalToContinuedFractions: Reader[Option[Int], BiCodec[List[Long], Rational]] = Reader(
+    nConvergent =>
+
+      BiCodec(
+        new (List[Long] <=> Rational) {
+
+          def to: List[Long] => Rational = {
+            fCoefs =>
+              val modCoefs: List[Long] = nConvergent.fold(fCoefs)(n => fCoefs.take(n))
+              val last :: restReverse = modCoefs.reverse
+              restReverse.foldLeft(Rational(last, 1)) { case (acc, coef) => acc.inverse + coef }
+          }
+
+          def from: Rational => List[Long] = {
+            x =>
+              def rationalToContinuedFractionsRecur(x: Rational): List[Long] = {
+                if (x.isWhole) x.longValue :: Nil
+                else {
+                  val remainder: Rational = x - x.longValue
+                  if (remainder.numerator == 1)
+                    x.longValue :: remainder.denominator.longValue :: Nil
+                  else
+                    x.longValue :: rationalToContinuedFractionsRecur(remainder.inverse)
+                }
+              }
+            rationalToContinuedFractionsRecur(x)
+          }
+        }
+      ))
 }

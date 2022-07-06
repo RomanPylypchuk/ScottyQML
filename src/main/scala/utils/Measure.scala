@@ -36,6 +36,11 @@ object Measure {
 
     private def nQubits: Int = measurements.stats.head._1.size
 
+    def reverseQubitOrder: StateStats =
+      measurements.copy(stats =
+        measurements.stats.map{case (dichotomy, times) => BitRegister(dichotomy.values.reverse :_*) -> times}
+        )
+
     def forQubits(qubits: Set[Int]): StateStats = {
       val stats = measurements.stats
       val reducedDichotomies = stats.map { case (fullDichotomy, times) => projectDichotomyBits(qubits)(fullDichotomy) -> times }
