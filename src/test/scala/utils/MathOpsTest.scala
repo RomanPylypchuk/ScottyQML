@@ -1,7 +1,7 @@
 package utils
 
 import spire.math.Rational
-import utils.MathOps.rationalToContinuedFractions
+import utils.algebra.NumberTheoryRoutines.rationalToContinuedFractions
 import utils.codec.BiCodec.BiCodecSyntax
 
 object MathOpsTest extends App{
