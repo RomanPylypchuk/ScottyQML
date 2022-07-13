@@ -36,6 +36,12 @@ object Measure {
 
     private def nQubits: Int = measurements.stats.head._1.size
 
+    def transform: (List[(BitRegister, Int)] => List[(BitRegister, Int)]) => StateStats =
+      {tFunction =>
+          StateStats(tFunction(measurements.stats))
+      }
+
+    //TODO - via transform
     def reverseQubitOrder: StateStats =
       measurements.copy(stats =
         measurements.stats.map{case (dichotomy, times) => BitRegister(dichotomy.values.reverse :_*) -> times}

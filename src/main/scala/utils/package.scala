@@ -1,4 +1,5 @@
 import scotty.quantum.gate.StandardGate.{CNOT, H, X}
+import scotty.quantum.gate.TargetGate
 import utils.MathOps.CrossOps
 
 package object utils {
@@ -20,9 +21,11 @@ package object utils {
 
   def allDichotomies(qubitN: Int): List[String] = (bits naryCross qubitN).map(_.mkString)
 
-  //How to abstract to any gate, e.g. Y, H?
-  def placeHs(indices: List[Int]): List[H] = indices.map(H)
-  def placeNOTs(indices: List[Int]): List[X] = indices.map(X)
+  val placeSingleQubitGate : (Int => TargetGate) => List[Int] => List[TargetGate] =
+    gateGen => indices => indices.map(gateGen)
+
+  val placeHs: List[Int] => List[TargetGate] = placeSingleQubitGate(H.apply)
+  val placeNOTs: List[Int] => List[TargetGate] = placeSingleQubitGate(X.apply)
   val placeCNOTs: Map[Int, List[Int]] => List[CNOT] = {
     controlsTargets =>
     val cNOTs = for{
@@ -36,6 +39,5 @@ package object utils {
     placeCNOTs(controlTargetMap.map{case (ci, ti) => ci -> List(ti)})
   }
 
-  def HTensor(n: Int): List[H] = placeHs((0 until n).toList)
-
+  def HTensor(n: Int): List[TargetGate] = placeHs((0 until n).toList)
 }
