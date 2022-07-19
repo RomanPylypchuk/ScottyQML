@@ -10,11 +10,11 @@ import scala.math.Integral.Implicits._
 
 object NumberTheoryRoutines {
 
-  final case class Var(x: Int)
-  final case class Expr(lhs: Var, rhs: Map[Var, Int])
+  final case class Var(x: Long)
+  final case class Expr(lhs: Var, rhs: Map[Var, Long])
 
   @tailrec
-  def gcd(x: Int, y: Int, acc: List[Expr] = Nil): (Int, List[Expr]) = {
+  def gcd(x: Long, y: Long, acc: List[Expr] = Nil): (Long, List[Expr]) = {
     val (xl, xs) = (x max y, x min y)
     val (q, r) = xl /% xs
     if (r == 0) (xs, acc) else {
@@ -23,7 +23,7 @@ object NumberTheoryRoutines {
     }
   }
 
-  def lcm(x: Int, y: Int): Int = (x * y) / gcd(x, y)._1
+  def lcm(x: Long, y: Long): Long = (x * y) / gcd(x, y)._1
 
   implicit val rationalToContinuedFractions: Reader[Option[Int], BiCodec[List[Long], Rational]] = Reader(
     nConvergent =>

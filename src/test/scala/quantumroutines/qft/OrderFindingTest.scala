@@ -12,7 +12,7 @@ import utils.Measure.{StateStatsOps, measureTimes}
 import utils.codec.BiCodec.BiCodecSyntax
 import utils.factory.BitRegisterFactory.decimalBitRegister
 
-object OrderFindingTest extends App {
+object OrderFindingTest extends App{
 
   //StatsConvergent Test; TODO - fix it
   val measurementOutcome1 = StateStats(List(
@@ -32,6 +32,7 @@ object OrderFindingTest extends App {
   val combineTwoEstimates = OrderFinding.combineOrders(ModularUnitaryParams(7, 15))
   println(combineTwoEstimates(estimate1, estimate2))
 
+  println("Testing mod exp N=15...")
   /////////////////////////////////////////////////////////////////////
 
   //nEigenQubits = 4
@@ -46,6 +47,7 @@ object OrderFindingTest extends App {
           Vector(SWAP(n + 1, n + 3), SWAP(n, n + 2))
       }
       x =>
+        //"x must be 2,4,7,8,11 or 13"
         //TODO - Ignore checking of x for now
         val multiplyModOnce: Int => Vector[Gate] = swaps andThen { swapGates =>
           if (Set(7, 11, 13)(x)) swapGates ++ (0 to 3).map(i => X(n + i)).toVector
@@ -74,10 +76,10 @@ object OrderFindingTest extends App {
     def controlPower: ModularUnitaryParams => (Int, Int) => Circuit =
     params => {
       val ModularUnitaryParams(x, modN) = params
-      val nEigenQubits: Int = log2(modN).ceil.toInt
+      val nEigenQubits: Int = log2(modN.toDouble).ceil.toInt
       val nPhaseQubits: Int = 2 * nEigenQubits + 1
       (ci, _) => {
-        val modExpBlock = modFifteenFourEigenQubits(nPhaseQubits)(x)(ci)
+        val modExpBlock = modFifteenFourEigenQubits(nPhaseQubits)(x.toInt)(ci)
         Circuit(
           modExpBlock.gates.map{
             case SWAP(i, j) => CSWAP(ci, i, j)
@@ -90,6 +92,6 @@ object OrderFindingTest extends App {
 
   val params = ModularUnitaryParams(7, 15)
   val mod15Gates: CircuitWithParams[QPEQubits] = qpeOrder(params)(mod15)
-  println(OrderFinding.order(params)(mod15))
+  println(OrderFinding.order(mod15)(params))
 
 }

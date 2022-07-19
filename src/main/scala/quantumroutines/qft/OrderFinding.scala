@@ -20,7 +20,7 @@ object OrderFinding {
 
   val orderQubits: ModularUnitaryParams => QPEQubits =
     params => {
-      val nEigenQubits: Int = log2(params.N).ceil.toInt
+      val nEigenQubits: Int = log2(params.N.toDouble).ceil.toInt
       val nPhaseQubits: Int = 2 * nEigenQubits + 1
       QPEQubits(nPhaseQubits, nEigenQubits)
     }
@@ -43,29 +43,33 @@ object OrderFinding {
       val estimate: Rational = Rational(phaseDecimal, math.pow(2, nPhaseQubits).toInt)
 
       val continuedFractions: List[Long] = estimate.decodeE[Option[Int], List[Long]](None)
-      val takeConvergent: Int = Random.between(1, continuedFractions.length) //TODO - fix, this may fail because of cFractions length = 1
-      val convergentRational: Rational = continuedFractions.encodeE[Option[Int], Rational](None) //TODO - how to take Some(takeConvergent) properly here?
+
+      val convergentRational: Rational = if (continuedFractions.length <= 3) estimate else {
+        val takeConvergent: Int = Random.between(1, continuedFractions.length)
+        continuedFractions.encodeE[Option[Int], Rational](Some(takeConvergent))
+      }
+
       if ((estimate - convergentRational).toDouble <= Rational(1, math.pow(2, (nPhaseQubits - 1) / 2).toInt).toDouble)
         convergentRational.validNec
       else ("Randomly chosen convergent " + convergentRational + " for estimate " + estimate + " doesn't satisfy the conditions").invalidNec
   }
 
   val combineOrders: ModularUnitaryParams =>
-    (ValidatedNec[String, Rational], ValidatedNec[String, Rational]) => ValidatedNec[String, Int] = {
+    (ValidatedNec[String, Rational], ValidatedNec[String, Rational]) => ValidatedNec[String, Long] = {
     params =>
         (frac1, frac2) =>
           (frac1, frac2).mapN { case (f1, f2) =>
             val (r1, r2) = (f1.denominatorAsLong, f2.denominatorAsLong)
-            lcm(r1.toInt, r2.toInt)
+            lcm(r1, r2)
           }.andThen { r =>
             if (math.pow(params.x, r).toInt % params.N == 1) r.validNec else ("Order estimate r=" + r + " is incorrect").invalidNec
           }}
 
-      val order: ModularUnitaryParams => ModularExponentiation => ValidatedNec[String, Int] = {
-        params =>
-          modExp =>
+      val order: ModularExponentiation => ModularUnitaryParams => ValidatedNec[String, Long] = {
+        modExp =>
+         params =>
             val orderBlock: CircuitWithParams[QPEQubits] = qpeOrder(params)(modExp)
-            val neededStats = measureTimes(10)(orderBlock.circuit) //TODO - factor out 10 times
+            val neededStats = measureTimes(15)(orderBlock.circuit) //TODO - factor out number of measurements
               .forQubits((0 until orderBlock.params.nPhaseQubits).toSet)
               .transform(s => s.sortBy{case(_, times) => -times}.take(2)).stats
 

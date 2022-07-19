@@ -1,3 +1,3 @@
 package quantumroutines.qft
 
-case class ModularUnitaryParams(x: Int, N: Int)
+case class ModularUnitaryParams(x: Long, N: Long)
