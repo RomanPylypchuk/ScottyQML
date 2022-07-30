@@ -40,4 +40,5 @@ package object utils {
   }
 
   def HTensor(n: Int): List[TargetGate] = placeHs((0 until n).toList)
+  def XTensor(n: Int): List[TargetGate] = placeNOTs((0 until n).toList)
 }

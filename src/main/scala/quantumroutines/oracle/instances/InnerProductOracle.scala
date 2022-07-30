@@ -8,7 +8,6 @@ import utils.singlePlaceCNOTs
 
 
 case class InnerProductOracle(nOracleQubits: Int, bitString: BitRegister) extends Oracle with HasBitString{
-  //type OutputType = VectorOutput
   def oracle: Circuit = {
     val cNOTs = singlePlaceCNOTs(bitString.decodeE[Int, Map[Int, Bit]](nOracleQubits).collect{case (i, One(_)) => i -> nOracleQubits})
     Circuit(cNOTs :_*)
