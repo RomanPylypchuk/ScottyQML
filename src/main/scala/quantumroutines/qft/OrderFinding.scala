@@ -3,7 +3,7 @@ package quantumroutines.qft
 import breeze.numerics.log2
 import cats.data.ValidatedNec
 import cats.implicits.{catsSyntaxTuple2Semigroupal, catsSyntaxValidatedIdBinCompat0}
-import quantumroutines.blocks.CircuitParams.QPEQubits
+import quantumroutines.blocks.CircuitParams.QPEQubitsOld
 import quantumroutines.blocks.CircuitWithParams
 import quantumroutines.qft.PhaseEstimation.phaseEstimate
 import scotty.quantum.gate.StandardGate.X
@@ -18,18 +18,18 @@ import scala.util.Random
 
 object OrderFinding {
 
-  val orderQubits: ModularUnitaryParams => QPEQubits =
+  val orderQubits: ModularUnitaryParams => QPEQubitsOld =
     params => {
       val nEigenQubits: Int = log2(params.N.toDouble).ceil.toInt
       val nPhaseQubits: Int = 2 * nEigenQubits + 1
-      QPEQubits(nPhaseQubits, nEigenQubits)
+      QPEQubitsOld(nPhaseQubits, nEigenQubits)
     }
 
-  val qpeOrder: ModularUnitaryParams => ModularExponentiation => CircuitWithParams[QPEQubits] = {
+  val qpeOrder: ModularUnitaryParams => ModularExponentiation => CircuitWithParams[QPEQubitsOld] = {
     params =>
       modExp =>
         val modUnitary = modExp.controlPower(params)
-        val qDims: QPEQubits = orderQubits(params)
+        val qDims: QPEQubitsOld = orderQubits(params)
         val phaseCircuit: Circuit = phaseEstimate(qDims)(Circuit(X(qDims.nPhaseQubits + qDims.nEigenQubits - 1)))(modUnitary)
         CircuitWithParams(phaseCircuit, qDims)
   }
@@ -68,7 +68,7 @@ object OrderFinding {
       val order: ModularExponentiation => ModularUnitaryParams => ValidatedNec[String, Long] = {
         modExp =>
          params =>
-            val orderBlock: CircuitWithParams[QPEQubits] = qpeOrder(params)(modExp)
+            val orderBlock: CircuitWithParams[QPEQubitsOld] = qpeOrder(params)(modExp)
             val neededStats = measureTimes(15)(orderBlock.circuit) //TODO - factor out number of measurements
               .forQubits((0 until orderBlock.params.nPhaseQubits).toSet)
               .transform(s => s.sortBy{case(_, times) => -times}.take(2)).stats

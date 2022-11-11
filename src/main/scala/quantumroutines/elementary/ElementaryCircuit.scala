@@ -5,7 +5,6 @@ import scotty.quantum.Circuit
 import scotty.quantum.ExperimentResult.StateStats
 import utils.Measure.{StateStatsOps, measureTimes}
 
-//TODO - Or perhaps use typeclass pattern for this?
 trait ElementaryCircuit {
   type CircuitOracle <: Oracle
   type CircuitOutput <: OracleOutput

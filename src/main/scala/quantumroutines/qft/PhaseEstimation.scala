@@ -1,6 +1,6 @@
 package quantumroutines.qft
 
-import quantumroutines.blocks.CircuitParams.QPEQubits
+import quantumroutines.blocks.CircuitParams.QPEQubitsOld
 import scotty.quantum.Circuit
 import utils.HTensor
 
@@ -23,9 +23,9 @@ object PhaseEstimation {
         controlledUs.reduceLeft(_ combine _)
       }
 
-  val phaseEstimate: QPEQubits => Circuit => ((Int, Int) => Circuit) => Circuit = {
+  val phaseEstimate: QPEQubitsOld => Circuit => ((Int, Int) => Circuit) => Circuit = {
     qpeQubits =>
-      val QPEQubits(nPhaseQubits, nEigenQubits) = qpeQubits
+      val QPEQubitsOld(nPhaseQubits, nEigenQubits) = qpeQubits
       val init = initCircuit(nPhaseQubits)
       val hadamards = Circuit(HTensor(nPhaseQubits): _*)
       val cBlock = controlBlock(nPhaseQubits)

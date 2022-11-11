@@ -1,7 +1,7 @@
 package quantumroutines.qft
 
 import breeze.numerics.log2
-import quantumroutines.blocks.CircuitParams.QPEQubits
+import quantumroutines.blocks.CircuitParams.QPEQubitsOld
 import quantumroutines.blocks.CircuitWithParams
 import quantumroutines.qft.OrderFinding.qpeOrder
 import scotty.quantum.ExperimentResult.StateStats
@@ -91,7 +91,7 @@ object OrderFindingTest extends App{
   }
 
   val params = ModularUnitaryParams(7, 15)
-  val mod15Gates: CircuitWithParams[QPEQubits] = qpeOrder(params)(mod15)
+  val mod15Gates: CircuitWithParams[QPEQubitsOld] = qpeOrder(params)(mod15)
   println(OrderFinding.order(mod15)(params))
 
 }

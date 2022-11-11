@@ -1,6 +1,6 @@
 package quantumroutines.qft
 
-import quantumroutines.blocks.CircuitParams.QPEQubits
+import quantumroutines.blocks.CircuitParams.QPEQubitsOld
 import quantumroutines.qft.PhaseEstimation.{initCircuit, phaseEstimate}
 import scotty.quantum.Circuit
 import scotty.quantum.gate.Controlled
@@ -18,7 +18,7 @@ object PhaseEstimationTest extends App{
   val piDiv3Gen: (Int, Int) => Circuit =
     (ci, j) => Circuit(Controlled(ci, PHASE(2 * (Math.PI / 3) * math.pow(2, j).toInt, 3)))
 
-  val piDivThreeEstimate: Circuit = phaseEstimate(QPEQubits(3,1))(Circuit(X(3)))(piDiv3Gen)
+  val piDivThreeEstimate: Circuit = phaseEstimate(QPEQubitsOld(3,1))(Circuit(X(3)))(piDiv3Gen)
 
   //phase3WithS
   measureTimes(1000)(piDivThreeEstimate).exceptQubits(Set(3)).stats.foreach(println)
