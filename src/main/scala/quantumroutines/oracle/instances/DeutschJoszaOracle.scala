@@ -9,8 +9,8 @@ import utils.singlePlaceCNOTs
 
 sealed trait DeutschJoszaOracle extends Oracle{
   //type OutputType = ScalarOutput
-  def nOracleQubits: Int  //Number of input qubits to oracle
-  def oracle: Circuit //Perhaps refactor this as a function outside of Oracle, leaving it as pure ADT?
+  //def nOracleQubits: Int  //Number of input qubits to oracle
+  //def oracle: Circuit //Perhaps refactor this as a function outside of Oracle, leaving it as pure ADT?
 }
 
 object DeutschJoszaOracle{

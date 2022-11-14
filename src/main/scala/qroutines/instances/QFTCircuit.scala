@@ -1,20 +1,17 @@
-package quantumroutines.combined
+package qroutines.instances
 
 import cats.data.Reader
+import qroutines.QuantumRoutineCircuit.IndependentQuantumRoutineCircuit
 import quantumroutines.blocks.CircuitParams.NumberQubits
 import quantumroutines.blocks.CircuitWithParams
 import scotty.quantum.Circuit
 import scotty.quantum.gate.StandardGate.{CPHASE, H, SWAP}
 import scotty.quantum.gate.{ControlGate, Gate}
 
-object QFTCircuit extends QuantumRoutineCircuit {
+object QFTCircuit extends IndependentQuantumRoutineCircuit {
 
   type InParamsType = NumberQubits
-  type UsedRoutineType = DummyCircuit.type
   type OutParamsType = NumberQubits
-
-  val usedRoutine: Option[DummyCircuit.type] = None
-  val inParamsToUsedRoutineParams: Option[NumberQubits => DummyCircuit.type] = None
 
   val cRotationK: Int => Int => ControlGate = {
     tQubit =>
