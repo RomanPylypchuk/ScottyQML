@@ -1,6 +1,6 @@
-package encoding.amplitude
+package qml.encoding.amplitude
 
-import encoding.amplitude.MultipleControlled.{controlledConfigurationGate, inverseControlled, multipleControlled}
+import qml.encoding.amplitude.MultipleControlled.{controlledConfigurationGate, inverseControlled, multipleControlled}
 import scotty.quantum.gate.StandardGate.{CCNOT, X}
 import scotty.quantum.{Circuit, One, Zero}
 import scotty.simulator.QuantumSimulator

@@ -6,7 +6,7 @@ import quantumroutines.oracle.OracleOutput.VectorOutput
 import quantumroutines.oracle.instances.SimonsOracle
 import scotty.quantum.ExperimentResult.StateStats
 import scotty.quantum.{BitRegister, Circuit}
-import utils.HTensor
+import utils.GateUtils.HTensor
 import utils.codec.BiCodec.BiCodecSyntax
 import utils.factory.BitRegisterFactory.{bitBitRegister, stringBitRegister}
 

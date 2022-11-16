@@ -1,9 +1,9 @@
-package encoding.qsample.probabilisticgraphical
+package qml.encoding.qsample.probabilisticgraphical
 
-import encoding.amplitude.MultipleControlled.controlledConfigurationGate
 import models.pgms.bayesian.BayesianNet
 import models.pgms.bayesian.NodeDistribution.{IndependentPD, TabularCPD}
 import org.nd4j.linalg.api.ndarray.INDArray
+import qml.encoding.amplitude.MultipleControlled.controlledConfigurationGate
 import scotty.quantum.gate.Gate
 import scotty.quantum.gate.StandardGate.RY
 import scotty.quantum.{Bit, Circuit}

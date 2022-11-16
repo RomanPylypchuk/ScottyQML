@@ -1,10 +1,10 @@
-package qroutines
+package qroutines.noracle
 
+import qroutines.NeedsDefinitionBy
 import qroutines.QuantumRoutineCircuit.IndependentQuantumRoutineCircuit
 import quantumroutines.blocks.CircuitParams.NumberQubits
 
-//TODO - Perhaps add here extra type member for creation of Oracle, e.g. Bit or BitRegister
-trait NOracle extends IndependentQuantumRoutineCircuit{
+trait NOracle extends IndependentQuantumRoutineCircuit with NeedsDefinitionBy[OracleDefinitions]{
   type InParamsType = NumberQubits
   type OutParamsType = NumberQubits
 }

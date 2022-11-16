@@ -1,10 +1,10 @@
 package quantumroutines.search
 
-import encoding.amplitude.MultipleControlled.multipleControlled
+import qml.encoding.amplitude.MultipleControlled.multipleControlled
 import quantumroutines.oracle.Oracle
 import scotty.quantum.Circuit
 import scotty.quantum.gate.StandardGate.{H, X, Z}
-import utils.{HTensor, XTensor}
+import utils.GateUtils.{HTensor, XTensor}
 
 object Grover {
   //This has many similarities with stuff in ElementaryCircuit - initialization, Oracle, etc.

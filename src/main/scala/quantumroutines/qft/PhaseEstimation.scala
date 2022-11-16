@@ -2,7 +2,7 @@ package quantumroutines.qft
 
 import quantumroutines.blocks.CircuitParams.QPEQubitsOld
 import scotty.quantum.Circuit
-import utils.HTensor
+import utils.GateUtils.HTensor
 
 object PhaseEstimation {
   //TODO - express this kind of like `ElementaryCircuit`, with no oracle, but controlled-U^(2^j)

@@ -11,6 +11,10 @@ object PhaseEstimationCircuit extends DependentQuantumRoutineCircuit {
   type OutParamsType = QPEParams
 
   val usedRoutine: QFTCircuit.type = QFTCircuit
-  val inParamsToUsedRoutineParams: QPEParams => NumberQubits = _ => NumberQubits(1)
-  val circuit: Reader[QPEParams, CircuitWithParams[QPEParams]] = ???
+  val inParamsToUsedRoutineParams: QPEParams => NumberQubits = qpeParams => NumberQubits(qpeParams.qubits.nPhaseQubits)
+
+  val circuit: Reader[QPEParams, CircuitWithParams[QPEParams]] = Reader{
+    //case QPEParams(QPEQubits(nPhaseQubits, nEigenQubits), eigenStatePrep, uPowerGen) =>
+    ???
+  }
 }

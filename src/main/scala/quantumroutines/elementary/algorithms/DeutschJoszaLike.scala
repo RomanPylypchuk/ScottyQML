@@ -3,7 +3,7 @@ package quantumroutines.elementary.algorithms
 import quantumroutines.elementary.ElementaryCircuit
 import scotty.quantum.Circuit
 import scotty.quantum.gate.StandardGate.{H, X}
-import utils.HTensor
+import utils.GateUtils.HTensor
 
 trait DeutschJoszaLike extends ElementaryCircuit {
   def preOracle: Int => Circuit =

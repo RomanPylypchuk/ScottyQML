@@ -1,9 +1,9 @@
-package encoding.amplitude
+package qml.encoding.amplitude
 
 import scotty.quantum.gate.StandardGate.X
 import scotty.quantum.gate._
 import scotty.quantum.{Bit, BitRegister, Zero}
-import utils.placeNOTs
+import utils.GateUtils.placeNOTs
 
 object MultipleControlled {
 

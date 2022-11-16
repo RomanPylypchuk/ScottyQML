@@ -1,4 +1,4 @@
-package encoding.qsample.probabilisticgraphical
+package qml.encoding.qsample.probabilisticgraphical
 
 import models.pgms.Node
 import models.pgms.bayesian.BayesianNet

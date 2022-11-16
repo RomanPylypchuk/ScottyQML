@@ -1,6 +1,6 @@
-package encoding.amplitude
+package qml.encoding.amplitude
 
-import encoding.amplitude.MultipleControlled.{controlledConfigurationGate, dichotomyToControlMap}
+import qml.encoding.amplitude.MultipleControlled.{controlledConfigurationGate, dichotomyToControlMap}
 import scotty.quantum.gate.StandardGate.RY
 import scotty.quantum.gate.{CompositeGate, Gate}
 import scotty.quantum.math.Complex

@@ -1,6 +1,6 @@
 package quantumroutines
 
-import encoding.amplitude.MultipleControlled.controlledConfigurationGate
+import qml.encoding.amplitude.MultipleControlled.controlledConfigurationGate
 import scotty.quantum.QuantumContext.Matrix
 import scotty.quantum.gate.DefGate
 import scotty.quantum.gate.StandardGate.X

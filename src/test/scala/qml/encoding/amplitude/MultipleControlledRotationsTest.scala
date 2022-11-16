@@ -1,6 +1,6 @@
-package encoding.amplitude
+package qml.encoding.amplitude
 
-import encoding.amplitude.MultiControlledRotations.{RYAngles, amplitudeEncodeCascade}
+import qml.encoding.amplitude.MultiControlledRotations.{RYAngles, amplitudeEncodeCascade}
 import scotty.quantum.{Circuit, QubitRegister, StateProbabilityReader, Superposition}
 import scotty.simulator.QuantumSimulator
 import utils.factory.SuperpositionFactory
