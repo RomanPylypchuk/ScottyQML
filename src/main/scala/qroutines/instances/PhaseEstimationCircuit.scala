@@ -2,9 +2,8 @@ package qroutines.instances
 
 import cats.data.Reader
 import qroutines.QuantumRoutineCircuit.DependentQuantumRoutineCircuit
-import quantumroutines.blocks.CircuitParams.{NumberQubits, QPEParams}
+import quantumroutines.blocks.CircuitParams.{NumberQubits, QPEParams, QPEQubits}
 import quantumroutines.blocks.CircuitWithParams
-import quantumroutines.qft.qpe.QPEQubits
 import scotty.quantum.Circuit
 import utils.GateUtils.HTensor
 
