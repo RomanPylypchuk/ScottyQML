@@ -38,7 +38,7 @@ object GateUtilsTest extends App{
 
   //Inverse Circuit test
   val qc = Circuit(X(0), Z(1), CNOT(0,1), SWAP(0,1), CNOT(1,0), Z(0))
-  val inverseQc = qc.inverse
+  val inverseQc = qc.dagger
 
   println(measureTimes(1000)(qc combine inverseQc))
 }

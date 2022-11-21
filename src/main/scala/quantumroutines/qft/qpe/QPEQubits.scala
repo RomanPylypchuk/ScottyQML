@@ -1,3 +1,5 @@
 package quantumroutines.qft.qpe
 
-case class QPEQubits(nPhaseQubits: Int, nEigenQubits: Int)
+import quantumroutines.blocks.CircuitParams.NumberQubits
+
+case class QPEQubits(nPhaseQubits: NumberQubits, nEigenQubits: NumberQubits)

@@ -36,7 +36,7 @@ object GateUtils {
   }
 
   implicit class InverseCircuit(val circuit: Circuit) {
-    def inverse: Circuit = {
+    def dagger: Circuit = {
        val inverseGates = circuit.gates.map(inverseGate)
        Circuit(inverseGates.reverse :_*)
     }

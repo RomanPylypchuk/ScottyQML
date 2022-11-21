@@ -4,6 +4,7 @@ import cats.data.Reader
 import quantumroutines.blocks.CircuitParams.NoParams
 import quantumroutines.blocks.{CircuitParams, CircuitWithParams}
 import scotty.quantum.Circuit
+import utils.GateUtils.InverseCircuit
 
 trait QuantumRoutineCircuit {
   type InParamsType <: CircuitParams
@@ -11,16 +12,8 @@ trait QuantumRoutineCircuit {
 
   val circuit: Reader[InParamsType, CircuitWithParams[OutParamsType]]
 
-  //TODO - implement inverse
-  //val inverse: Reader[InParamsType, CircuitWithParams[OutParamsType]]
-  //Dagger from Scotty is only applied to TargetGate, need to generalize to control gates, etc
-  /*
-    circuit.map{circWParams =>
-    val revGates = circWParams.circuit.gates.reverse.map{
-      case x => Dagger(x)
-    }
-    //Circuit(revGates :_*)
-  }*/
+  val inverse: Reader[InParamsType, CircuitWithParams[OutParamsType]] =
+    circuit.map(cwP => cwP.copy(circuit = cwP.circuit.dagger))
 }
 
 object QuantumRoutineCircuit{
@@ -41,6 +34,6 @@ object QuantumRoutineCircuit{
     type UsedRoutineType <: QuantumRoutineCircuit
 
     val usedRoutine: UsedRoutineType
-    val inParamsToUsedRoutineParams: InParamsType => usedRoutine.InParamsType
+    val inParamsToUsedRoutineParams: Reader[InParamsType, usedRoutine.InParamsType]
   }
 }

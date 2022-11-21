@@ -4,6 +4,9 @@ import cats.data.Reader
 import qroutines.QuantumRoutineCircuit.DependentQuantumRoutineCircuit
 import quantumroutines.blocks.CircuitParams.{NumberQubits, QPEParams}
 import quantumroutines.blocks.CircuitWithParams
+import quantumroutines.qft.qpe.QPEQubits
+import scotty.quantum.Circuit
+import utils.GateUtils.HTensor
 
 object PhaseEstimationCircuit extends DependentQuantumRoutineCircuit {
   type InParamsType = QPEParams
@@ -11,10 +14,44 @@ object PhaseEstimationCircuit extends DependentQuantumRoutineCircuit {
   type OutParamsType = QPEParams
 
   val usedRoutine: QFTCircuit.type = QFTCircuit
-  val inParamsToUsedRoutineParams: QPEParams => NumberQubits = qpeParams => NumberQubits(qpeParams.qubits.nPhaseQubits)
+  val inParamsToUsedRoutineParams: Reader[QPEParams, NumberQubits] = Reader(_.qubits.nPhaseQubits)
 
-  val circuit: Reader[QPEParams, CircuitWithParams[QPEParams]] = Reader{
-    //case QPEParams(QPEQubits(nPhaseQubits, nEigenQubits), eigenStatePrep, uPowerGen) =>
-    ???
+  val initCircuit: Int => Int => Circuit =
+    nPhaseQubits =>
+      nEigenQubits => {
+        Circuit.apply(Circuit.generateRegister(nPhaseQubits + nEigenQubits))
+      }
+
+  val controlBlock: Int => ((Int, Int) => Circuit) => Circuit =
+    nPhaseQubits =>
+      cUPower2Gen => {
+        val controlledUs = (0 until nPhaseQubits).map { cIdx =>
+          cUPower2Gen(cIdx, nPhaseQubits - cIdx - 1)
+        }
+        controlledUs.reduceLeft(_ combine _)
+      }
+
+  val circuit: Reader[QPEParams, CircuitWithParams[QPEParams]] = {
+
+    val preQft: Reader[QPEParams, Circuit] = Reader {
+      case QPEParams(
+      QPEQubits(NumberQubits(nPhaseQubits), NumberQubits(nEigenQubits)), eigenStatePrep, cUnitaryPower) =>
+
+        val init = initCircuit(nPhaseQubits)
+        val hadamards = Circuit(HTensor(nPhaseQubits): _*)
+        val cBlock = controlBlock(nPhaseQubits)
+
+        init(nEigenQubits) combine eigenStatePrep combine hadamards combine cBlock(cUnitaryPower.uPowerGen)
+    }
+
+    for {
+      param <- Reader[QPEParams, QPEParams](identity)
+      preQftCirc <- preQft
+      qftParams <- inParamsToUsedRoutineParams
+    } yield {
+      val qpe: Circuit = preQftCirc combine usedRoutine.inverse(qftParams).circuit
+      CircuitWithParams(qpe, param)
+    }
   }
+
 }
