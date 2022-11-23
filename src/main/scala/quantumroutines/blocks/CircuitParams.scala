@@ -14,5 +14,6 @@ object CircuitParams{
   case class OrderFindingParams(modParams: ModularUnitaryParams, modExp: NModularExponentiation) extends CircuitParams
 
 
+
   case class QPEQubitsOld(nPhaseQubits: Int, nEigenQubits: Int) extends CircuitParams
 }

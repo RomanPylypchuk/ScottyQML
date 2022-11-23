@@ -8,7 +8,8 @@ import utils.algebra.NumberTheoryRoutines.gcd
 object Shor {
 
   val checkEven: Long => ValidatedNec[String, Long] = { n => if (n % 2 == 0) 2L.validNec else "Not a factor of 2".invalidNec }
-  val checkPowerOf: Long => ValidatedNec[String, Long] = { _ => "Not a power of a".invalidNec } //TODO - Check if n = a^b for some a,b; Always fails for now
+  val checkPowerOf: Long => ValidatedNec[String, Long] = { _ => "Not a power of a".invalidNec }
+  //TODO - Check if n = a^b for some a,b; Always fails for now
 
   val checkGCD: ModularUnitaryParams => ValidatedNec[String, Long] = { params =>
     val (common, _) = gcd(params.x, params.N)

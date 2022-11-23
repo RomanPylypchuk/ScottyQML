@@ -13,7 +13,7 @@ import utils.factory.BitRegisterFactory.{BitRegisterTo, controlMapBitRegister}
 
 trait NDeutschJoszaOracle extends NOracle
 
-object NDeutschJoszaOracle {
+object NDeutschJoszaOracle{
 
   sealed trait NConstantOracle extends NDeutschJoszaOracle {
     type DefiningType = BitValue

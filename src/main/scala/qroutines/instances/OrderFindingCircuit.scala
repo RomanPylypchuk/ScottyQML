@@ -12,8 +12,7 @@ import scotty.quantum.gate.StandardGate.X
 object OrderFindingCircuit extends DependentQuantumRoutineCircuit{
   type InParamsType = OrderFindingParams
   type UsedRoutineType = PhaseEstimationCircuit.type
-  type OutParamsType = QPEQubits
-
+  type OutParamsType = QPEParams
 
   val usedRoutine: PhaseEstimationCircuit.type = PhaseEstimationCircuit
   val inParamsToUsedRoutineParams: Reader[OrderFindingParams, QPEParams] = Reader{
@@ -26,7 +25,7 @@ object OrderFindingCircuit extends DependentQuantumRoutineCircuit{
       QPEParams(qpeQubits, eigenStatePrep ,ofParams.modExp.controlPower(modUParams))
   }
 
-  val circuit: Reader[OrderFindingParams, CircuitWithParams[QPEQubits]] = ???
-
+  val circuit: Reader[OrderFindingParams, CircuitWithParams[QPEParams]] =
+    usedRoutine.circuit compose inParamsToUsedRoutineParams
 
 }
