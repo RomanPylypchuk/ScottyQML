@@ -6,5 +6,4 @@ case class NDeutschJoszaCircuit(usedRoutine: NDeutschJoszaOracle) extends NDeuts
 
   type UsedRoutineType = NDeutschJoszaOracle
 
-
 }
