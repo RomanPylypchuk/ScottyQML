@@ -1,6 +1,6 @@
 package quantumroutines.blocks
 
-import qroutines.{ControlledUnitaryPower, NModularExponentiation}
+import qroutines.blocks.routine.{ControlledUnitaryPower, NModularExponentiation}
 import quantumroutines.qft.ModularUnitaryParams
 import scotty.quantum.Circuit
 

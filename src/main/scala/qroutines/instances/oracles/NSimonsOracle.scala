@@ -1,8 +1,8 @@
-package qroutines.noracle.instances
+package qroutines.instances.oracles
 
 import cats.data.Reader
-import qroutines.noracle.NOracle
-import qroutines.noracle.OracleDefinitions.{BitStringValue, BitValue}
+import qroutines.blocks.noracle.NOracle
+import qroutines.blocks.noracle.OracleDefinitions.{BitStringValue, BitValue}
 import quantumroutines.blocks.CircuitParams.NumberQubits
 import quantumroutines.blocks.CircuitWithParams
 import scotty.quantum.gate.StandardGate.CNOT

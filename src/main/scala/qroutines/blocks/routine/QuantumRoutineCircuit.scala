@@ -1,4 +1,4 @@
-package qroutines
+package qroutines.blocks.routine
 
 import cats.data.Reader
 import quantumroutines.blocks.CircuitParams.NoParams

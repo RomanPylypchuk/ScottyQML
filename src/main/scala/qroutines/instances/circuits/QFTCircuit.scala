@@ -1,7 +1,7 @@
-package qroutines.instances
+package qroutines.instances.circuits
 
 import cats.data.Reader
-import qroutines.QuantumRoutineCircuit.IndependentQuantumRoutineCircuit
+import qroutines.blocks.routine.QuantumRoutineCircuit.IndependentQuantumRoutineCircuit
 import quantumroutines.blocks.CircuitParams.NumberQubits
 import quantumroutines.blocks.CircuitWithParams
 import scotty.quantum.Circuit

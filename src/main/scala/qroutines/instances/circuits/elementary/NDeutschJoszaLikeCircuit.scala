@@ -1,4 +1,4 @@
-package qroutines.instances.elementary
+package qroutines.instances.circuits.elementary
 
 import cats.data.Reader
 import quantumroutines.blocks.CircuitParams.NumberQubits

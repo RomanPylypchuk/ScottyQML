@@ -1,7 +1,7 @@
-package qroutines.instances
+package qroutines.instances.circuits
 
 //extends DependentQuantumRoutineCircuit{
-object ShorCircuit{
+object ShorCircuit {
 
   //type InParamsType =
 }

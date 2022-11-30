@@ -1,4 +1,4 @@
-package qroutines.noracle
+package qroutines.blocks.noracle
 
 import scotty.quantum.{Bit, BitRegister}
 

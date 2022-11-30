@@ -1,6 +1,6 @@
-package qroutines.instances.elementary
+package qroutines.instances.circuits.elementary
 
-import qroutines.noracle.instances.NInnerProductOracle
+import qroutines.instances.oracles.NInnerProductOracle
 
 case class NBernsteinVaziraniCircuit(usedRoutine: NInnerProductOracle) extends NDeutschJoszaLikeCircuit{
 

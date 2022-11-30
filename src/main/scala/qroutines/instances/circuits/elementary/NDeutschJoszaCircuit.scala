@@ -1,6 +1,6 @@
-package qroutines.instances.elementary
+package qroutines.instances.circuits.elementary
 
-import qroutines.noracle.instances.NDeutschJoszaOracle
+import qroutines.instances.oracles.NDeutschJoszaOracle
 
 case class NDeutschJoszaCircuit(usedRoutine: NDeutschJoszaOracle) extends NDeutschJoszaLikeCircuit {
 
