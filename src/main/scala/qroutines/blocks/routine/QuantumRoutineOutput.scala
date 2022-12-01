@@ -14,5 +14,9 @@ object QuantumRoutineOutput{
   case object Constant extends ConstantOrBalanced
   case object Balanced extends ConstantOrBalanced
 
+  //sealed trait OneOrTwoToOne extends ScalarOutput
+  //case object OneToOne extends OneOrTwoToOne
+  //case object TwoToOne extends OneOrTwoToOne
+
   case class LongOutput(l: Long) extends ScalarOutput
 }

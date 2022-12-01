@@ -29,7 +29,6 @@ object Simons extends ElementaryCircuit {
       val mostProbable = nonZeroDichotomies.sortBy(_._2).map(_._1).takeRight(oracle.nOracleQubits)
       val outcomesMatrix: DenseMatrix[Int] = DenseMatrix(mostProbable.map(br => br.decode[List[Int]]) :_*)
       println(outcomesMatrix)
-      //TODO - actually need to solve the system of linear equations in binary variables
       VectorOutput("00".encode[BitRegister])
   }
 }
