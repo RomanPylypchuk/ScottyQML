@@ -17,7 +17,7 @@ trait QuantumRoutine { self =>
 
 object QuantumRoutine{
 
-  implicit class QuantumRoutineExecutor[Q <: QuantumDependentRoutine](val qr: Q){
+  implicit class QuantumRoutineExecutor[Q <: QuantumRoutine](val qr: Q){
     def run(qParams: qr.InParamsType, mParams: QuantumMeasurementParams)
            (implicit backend: QuantumMeasurementBackend): ValidatedNec[String,qr.qrInterpreter.RoutineOutput] = {
 
