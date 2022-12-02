@@ -1,4 +1,4 @@
-package qroutines.blocks.routine
+package qroutines.blocks
 
 import quantumroutines.qft.ModularUnitaryParams
 

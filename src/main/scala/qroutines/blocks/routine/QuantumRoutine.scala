@@ -8,15 +8,16 @@ import scotty.quantum.Circuit
 
 trait QuantumRoutine { self =>
   type InParamsType <: CircuitParams
+  type RoutineCircuitType <: QuantumRoutineCircuit
 
-  val qrCircuit: QuantumRoutineCircuit{type InParamsType = self.InParamsType}
+  val qrCircuit: RoutineCircuitType{type InParamsType = self.InParamsType}
   val qrInterpreter: QuantumRoutineInterpreter{type InParamsType = self.InParamsType}
 
 }
 
 object QuantumRoutine{
 
-  implicit class QuantumRoutineExecutor[Q <: QuantumRoutine](val qr: Q){
+  implicit class QuantumRoutineExecutor[Q <: QuantumDependentRoutine](val qr: Q){
     def run(qParams: qr.InParamsType, mParams: QuantumMeasurementParams)
            (implicit backend: QuantumMeasurementBackend): ValidatedNec[String,qr.qrInterpreter.RoutineOutput] = {
 
