@@ -16,11 +16,9 @@ trait NElementaryCircuit extends DependentQuantumRoutineCircuit{
   val preOracle: Reader[NumberQubits, Circuit]
   val postOracle: Reader[NumberQubits, Circuit]
 
-  val circuit: Reader[NumberQubits, CircuitWithParams[NumberQubits]] = Reader{
+  val circuit: Reader[NumberQubits, Circuit] = Reader{
     nq =>
-      val oracleCircuit: CircuitWithParams[NumberQubits] = usedRoutine.circuit(inParamsToUsedRoutineParams(nq))
-        oracleCircuit.copy(
-          circuit = preOracle(nq) combine oracleCircuit.circuit combine postOracle(nq)
-        )
+      val oracleCircuit: Circuit = usedRoutine.circuit(inParamsToUsedRoutineParams(nq))
+      preOracle(nq) combine oracleCircuit combine postOracle(nq)
   }
 }

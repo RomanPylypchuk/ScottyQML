@@ -42,13 +42,12 @@ object QFTCircuit extends IndependentQuantumRoutineCircuit {
       Circuit(swaps: _*)
   }
 
-  val circuit: Reader[NumberQubits, CircuitWithParams[NumberQubits]] = {
+  val circuit: Reader[NumberQubits, Circuit] = {
 
-    val qft: Reader[Int, CircuitWithParams[NumberQubits]] = for {
-      qubits <- Reader[Int, NumberQubits](NumberQubits)
+    val qft: Reader[Int, Circuit] = for {
       rots <- Reader(rotationsCircuit)
       swaps <- Reader(swapCircuit)
-    } yield CircuitWithParams(rots combine swaps, qubits)
+    } yield rots combine swaps
 
     val project: Reader[NumberQubits, Int] = Reader[NumberQubits, Int](_.nQubits)
 

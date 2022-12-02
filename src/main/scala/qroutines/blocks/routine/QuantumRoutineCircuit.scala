@@ -8,12 +8,11 @@ import utils.GateUtils.InverseCircuit
 
 trait QuantumRoutineCircuit {
   type InParamsType <: CircuitParams
-  type OutParamsType <: CircuitParams
 
-  val circuit: Reader[InParamsType, CircuitWithParams[OutParamsType]]
+  val circuit: Reader[InParamsType, Circuit]
 
-  val inverse: Reader[InParamsType, CircuitWithParams[OutParamsType]] =
-    circuit.map(cwP => cwP.copy(circuit = cwP.circuit.dagger))
+  val inverse: Reader[InParamsType, Circuit] =
+    circuit.map(circuit => circuit.dagger)
 }
 
 object QuantumRoutineCircuit{
@@ -22,10 +21,9 @@ object QuantumRoutineCircuit{
 
   object EmptyCircuit extends IndependentQuantumRoutineCircuit {
     type InParamsType = NoParams.type
-    type OutParamsType = NoParams.type
 
-    val circuit: Reader[InParamsType, CircuitWithParams[OutParamsType]] =
-      Reader(_ => CircuitWithParams(Circuit(), NoParams))
+    val circuit: Reader[InParamsType, Circuit] =
+      Reader(_ => Circuit())
 
   }
 

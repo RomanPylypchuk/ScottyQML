@@ -24,7 +24,7 @@ object OrderFindingCircuit extends DependentQuantumRoutineCircuit {
       QPEParams(qpeQubits, eigenStatePrep, ofParams.modExp.controlPower(modUParams))
   }
 
-  val circuit: Reader[OrderFindingParams, CircuitWithParams[QPEParams]] =
+  val circuit: Reader[OrderFindingParams, Circuit] =
     usedRoutine.circuit compose inParamsToUsedRoutineParams
 
 }

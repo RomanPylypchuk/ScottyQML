@@ -30,7 +30,7 @@ object PhaseEstimationCircuit extends DependentQuantumRoutineCircuit {
         controlledUs.reduceLeft(_ combine _)
       }
 
-  val circuit: Reader[QPEParams, CircuitWithParams[QPEParams]] = {
+  val circuit: Reader[QPEParams, Circuit] = {
 
     val preQft: Reader[QPEParams, Circuit] = Reader {
       case QPEParams(
@@ -48,8 +48,8 @@ object PhaseEstimationCircuit extends DependentQuantumRoutineCircuit {
       preQftCirc <- preQft
       qftParams <- inParamsToUsedRoutineParams
     } yield {
-      val qpe: Circuit = preQftCirc combine usedRoutine.inverse(qftParams).circuit
-      CircuitWithParams(qpe, param)
+      val qpe: Circuit = preQftCirc combine usedRoutine.inverse(qftParams)
+      qpe
     }
   }
 

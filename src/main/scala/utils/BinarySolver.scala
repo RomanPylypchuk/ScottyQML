@@ -1,6 +1,10 @@
 package utils
 
-import utils.MathOps.zip
+import breeze.linalg.{DenseMatrix, DenseVector, Transpose}
+import scotty.quantum.BitRegister
+import utils.MathOps.{CrossOps, zip}
+import utils.codec.BiCodec.BiCodecSyntax
+import utils.factory.BitRegisterFactory.bitBitRegister
 
 import scala.annotation.tailrec
 
@@ -82,6 +86,23 @@ object BinarySolver {
 
 
     }
+  }
+
+  val binarySolverBruteForce: DenseMatrix[Int] => Option[BitRegister] = {
+    system =>
+
+      val satisfiesAll: DenseVector[Int] => Boolean = {
+        dichotomy =>
+          (0 until system.rows).map{
+            rowI =>
+              system(rowI, ::)
+          }.forall(_.inner.dot(dichotomy) % 2 == 0)
+      }
+
+      val allDichotomies = List(0,1).naryCross(system.cols)
+      allDichotomies.tail.find(
+        dichotomy => satisfiesAll(DenseVector(dichotomy :_*))
+      ).map(_.encode[BitRegister])
   }
 
 }

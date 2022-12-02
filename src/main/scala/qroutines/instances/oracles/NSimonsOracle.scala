@@ -24,7 +24,7 @@ object NSimonsOracle {
   sealed trait NOneToOneOracle extends NSimonsOracle {
     type DefiningType = BitValue //One for identity oracle, Zero for random oracle
 
-    val circuit: Reader[NumberQubits, CircuitWithParams[NumberQubits]] = Reader {
+    val circuit: Reader[NumberQubits, Circuit] = Reader {
       case nq@NumberQubits(nOracleQubits) =>
         val circuit = definingObject.value match {
           case One(_) => copyToSecondRegister(nOracleQubits)
@@ -34,7 +34,7 @@ object NSimonsOracle {
             val shuffleMap: Map[Int, Int] = inIndices.zip(shuffledIndices).toMap
             Circuit(singlePlaceCNOTs(shuffleMap): _*)
         }
-        CircuitWithParams(circuit, nq)
+        circuit
     }
   }
 
@@ -50,7 +50,7 @@ object NSimonsOracle {
   case class TwoToOneOracle(definingObject: BitStringValue) extends NSimonsOracle {
     type DefiningType = BitStringValue
 
-    val circuit: Reader[NumberQubits, CircuitWithParams[NumberQubits]] = Reader {
+    val circuit: Reader[NumberQubits, Circuit] = Reader {
       case nq@NumberQubits(nOracleQubits) =>
         val oneIdcs: List[Int] = definingObject.value.decodeE[Int, Map[Int, Bit]](nOracleQubits).collect { case (i, One(_)) => i }.toList
         val nonZeroBitIdx: Int = definingObject.value.values.indexWhere(_ == One())
@@ -58,7 +58,7 @@ object NSimonsOracle {
         val twoToOneLogic: Circuit = Circuit(maybeAddMod2: _*)
         val circuit = copyToSecondRegister(nOracleQubits) combine twoToOneLogic
 
-        CircuitWithParams(circuit, nq)
+        circuit
     }
   }
 }

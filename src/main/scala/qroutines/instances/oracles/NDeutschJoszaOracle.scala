@@ -18,8 +18,8 @@ object NDeutschJoszaOracle{
   sealed trait NConstantOracle extends NDeutschJoszaOracle {
     type DefiningType = BitValue
 
-    val circuit: Reader[NumberQubits, CircuitWithParams[NumberQubits]] = Reader {
-      case nq@NumberQubits(nOracleQubits) =>
+    val circuit: Reader[NumberQubits, Circuit] = Reader {
+      case NumberQubits(nOracleQubits) =>
         val nQubits = nOracleQubits + 1
         val emptyCircuit = Circuit.apply(Circuit.generateRegister(nQubits))
 
@@ -27,7 +27,7 @@ object NDeutschJoszaOracle{
           case Zero(_) => emptyCircuit
           case One(_) => emptyCircuit combine Circuit(X(nQubits - 1))
         }
-        CircuitWithParams(circuit, nq)
+        circuit
     }
   }
 
@@ -43,15 +43,15 @@ object NDeutschJoszaOracle{
   final case class BalancedOracle(definingObject: BitShiftValue) extends NDeutschJoszaOracle {
     type DefiningType = BitShiftValue
 
-    val circuit: Reader[NumberQubits, CircuitWithParams[NumberQubits]] = Reader {
-      case nq@NumberQubits(nOracleQubits) =>
+    val circuit: Reader[NumberQubits, Circuit] = Reader {
+      case NumberQubits(nOracleQubits) =>
         val shift: Option[Circuit] = definingObject.value.map(cMap => cMap.encodeE[Int, BitRegister](nOracleQubits).toCircuit)
 
         val cNOTs = singlePlaceCNOTs((0 until nOracleQubits).map(_ -> nOracleQubits).toMap)
         val balancedInside: Circuit = Circuit(cNOTs: _*)
 
         val circuit = shift.fold(balancedInside)(sCircuit => sCircuit combine balancedInside combine sCircuit)
-        CircuitWithParams(circuit, nq)
+        circuit
     }
   }
 }

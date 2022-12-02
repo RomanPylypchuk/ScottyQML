@@ -1,5 +1,7 @@
 package utils
-import utils.BinarySolver.binarySolver
+import breeze.linalg._
+import breeze.numerics._
+import utils.BinarySolver.{binarySolver, binarySolverBruteForce}
 
 object BinarySolverTest extends App{
   //val m1 = Array(Array(1, 0, 1), Array(0, 0, 1))
@@ -24,5 +26,15 @@ object BinarySolverTest extends App{
 
   val o3 = Array(0,0,0)
 
-  println(binarySolver(3, m3, o3))
+  //println(binarySolver(3, m3, o3))
+
+  val m4 = Array(
+    Array(0,0,1),
+    Array(1,1,1),
+    Array(0,0,0)
+  )
+
+
+  println(binarySolverBruteForce(DenseMatrix(m4 :_*)))
+
 }

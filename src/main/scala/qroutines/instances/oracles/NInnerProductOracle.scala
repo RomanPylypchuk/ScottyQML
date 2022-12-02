@@ -13,7 +13,7 @@ import utils.factory.BitRegisterFactory.controlMapBitRegister
 case class NInnerProductOracle(definingObject: BitStringValue) extends NOracle {
   type DefiningType = BitStringValue
 
-  val circuit: Reader[NumberQubits, CircuitWithParams[NumberQubits]] = Reader {
+  val circuit: Reader[NumberQubits, Circuit] = Reader {
     case nq@NumberQubits(nOracleQubits) =>
       val cNOTs = singlePlaceCNOTs(
         definingObject.value.decodeE[Int, Map[Int, Bit]](nOracleQubits).collect {
@@ -21,6 +21,6 @@ case class NInnerProductOracle(definingObject: BitStringValue) extends NOracle {
         }
       )
       val circuit = Circuit(cNOTs: _*)
-      CircuitWithParams(circuit, nq)
+      circuit
   }
 }

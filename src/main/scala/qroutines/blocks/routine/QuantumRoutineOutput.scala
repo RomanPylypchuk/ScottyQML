@@ -9,14 +9,14 @@ object QuantumRoutineOutput{
   sealed trait VectorOutput extends QuantumRoutineOutput
   case class BitStringOutput(b: BitRegister) extends VectorOutput
 
+  sealed trait OneOrTwoToOne extends VectorOutput
+  case object OneToOne extends OneOrTwoToOne
+  case class TwoToOne(b: BitRegister) extends OneOrTwoToOne
+
   sealed trait ScalarOutput extends QuantumRoutineOutput
   sealed trait ConstantOrBalanced extends ScalarOutput
   case object Constant extends ConstantOrBalanced
   case object Balanced extends ConstantOrBalanced
-
-  //sealed trait OneOrTwoToOne extends ScalarOutput
-  //case object OneToOne extends OneOrTwoToOne
-  //case object TwoToOne extends OneOrTwoToOne
 
   case class LongOutput(l: Long) extends ScalarOutput
 }
