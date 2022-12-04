@@ -1,15 +1,15 @@
-package qroutines.instances.routines
+package qroutines.instances.routines.elementary
 
-import qroutines.blocks.routine.{QuantumRoutine, QuantumRoutineCircuit}
+import qroutines.blocks.routine.QuantumRoutine
 import qroutines.instances.circuits.elementary.NDeutschJoszaCircuit
-import quantumroutines.blocks.CircuitParams.NumberQubits
 import qroutines.instances.interpreters.elementary.NDeutschJoszaInterpreter
 import qroutines.instances.oracles.NDeutschJoszaOracle
+import quantumroutines.blocks.CircuitParams.NumberQubits
 
-case class NDeutschJosza(usedRoutine: NDeutschJoszaOracle) extends QuantumRoutine{
+case class NDeutschJosza(oracle: NDeutschJoszaOracle) extends QuantumRoutine{
   type InParamsType = NumberQubits
   type RoutineCircuitType = NDeutschJoszaCircuit
 
-  val qrCircuit: NDeutschJoszaCircuit = NDeutschJoszaCircuit(usedRoutine)
+  val qrCircuit: NDeutschJoszaCircuit = NDeutschJoszaCircuit(oracle)
   val qrInterpreter: NDeutschJoszaInterpreter.type = NDeutschJoszaInterpreter
 }
