@@ -1,5 +1,6 @@
 package qroutines.instances.routines.elementary
 
+import cats.data.Reader
 import qroutines.blocks.routine.{QuantumRoutine, QuantumRoutineInterpreter}
 import qroutines.instances.circuits.elementary.NSimonsCircuit
 import qroutines.instances.interpreters.elementary.NSimonsInterpreter
@@ -11,5 +12,6 @@ case class NSimons(oracle: NSimonsOracle) extends QuantumRoutine{
   type RoutineCircuitType = NSimonsCircuit
 
   val qrCircuit: NSimonsCircuit = NSimonsCircuit(oracle)
+  val qrMeasureQubits: Reader[NumberQubits, Set[Int]] = Reader{case NumberQubits(nOracleQubits) => (nOracleQubits to 2*nOracleQubits-1).toSet} 
   val qrInterpreter: NSimonsInterpreter.type = NSimonsInterpreter
 }

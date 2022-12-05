@@ -16,11 +16,10 @@ object Shor {
     if (common > 1) common.validNec else s"GCD($params.x, $params.N) is one".invalidNec
   }
 
-  val factorFromOrder: Reader[ModularUnitaryParams, ValidatedNec[String, Long] => ValidatedNec[String, Long]] =
+  val factorFromOrder: Reader[ModularUnitaryParams, Long => ValidatedNec[String, Long]] =
     Reader {
       params => {
-        foundOrder =>
-          foundOrder andThen { r =>
+        { r =>
             if (r % 2 == 0 && math.abs(math.pow(params.x, r / 2) % params.N) != 1) {
               val maybeFactors = List(1, -1).map(shift => gcd((math.pow(params.x, r / 2).toLong + shift) % params.N, params.N)._1)
               maybeFactors
@@ -40,7 +39,7 @@ object Shor {
       for {
         foundOrder <- Reader(orderFinding) //TODO - refactor order from OrderFinding to Reader
         findFactor <- factorFromOrder
-      } yield findFactor(foundOrder)
+      } yield foundOrder andThen findFactor
 
   }
 

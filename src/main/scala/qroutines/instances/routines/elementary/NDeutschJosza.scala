@@ -1,8 +1,9 @@
 package qroutines.instances.routines.elementary
 
+import cats.data.Reader
 import qroutines.blocks.routine.QuantumRoutine
 import qroutines.instances.circuits.elementary.NDeutschJoszaCircuit
-import qroutines.instances.interpreters.elementary.NDeutschJoszaInterpreter
+//import qroutines.instances.interpreters.elementary.NDeutschJoszaInterpreter
 import qroutines.instances.oracles.NDeutschJoszaOracle
 import quantumroutines.blocks.CircuitParams.NumberQubits
 
@@ -11,5 +12,6 @@ case class NDeutschJosza(oracle: NDeutschJoszaOracle) extends QuantumRoutine{
   type RoutineCircuitType = NDeutschJoszaCircuit
 
   val qrCircuit: NDeutschJoszaCircuit = NDeutschJoszaCircuit(oracle)
-  val qrInterpreter: NDeutschJoszaInterpreter.type = NDeutschJoszaInterpreter
+  val qrMeasureQubits: Reader[NumberQubits,Set[Int]] = Reader{case NumberQubits(nOracleQubits) => (0 until nOracleQubits).toSet}
+  val qrInterpreter = ???
 }
