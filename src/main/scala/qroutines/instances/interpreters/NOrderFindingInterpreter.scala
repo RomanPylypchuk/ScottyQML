@@ -64,7 +64,7 @@ object NOrderFindingInterpreter extends QuantumRoutineInterpreter{
           val neededStats = stats.transform(s => s.sortBy{case(_, times) => -times}.take(2)).stats    
             val List((phase1, _), (phase2, _)) = neededStats
 
-            combineOrders(ofParams.modParams)(statsConvergent(phase1), statsConvergent(phase2)) map (LongOutput)
+            combineOrders(ofParams.modParams)(statsConvergent(phase1), statsConvergent(phase2)) map LongOutput
         }
         
   }    
