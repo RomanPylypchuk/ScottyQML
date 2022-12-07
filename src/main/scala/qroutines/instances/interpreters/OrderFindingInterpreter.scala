@@ -23,7 +23,7 @@ import scala.util.Random
 import cats.data.Reader
 
 
-object NOrderFindingInterpreter extends QuantumRoutineInterpreter{
+object OrderFindingInterpreter extends QuantumRoutineInterpreter{
     type InParamsType = OrderFindingParams
     type RoutineOutput = LongOutput
 
