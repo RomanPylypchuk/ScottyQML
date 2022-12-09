@@ -7,7 +7,7 @@ import cats.data.Reader
 import quantumroutines.blocks.CircuitParams
 import qroutines.instances.interpreters.ShorInterpreter
 
-trait NShor extends QuantumRoutine{
+object NShor extends QuantumRoutine{
   
     type InParamsType = OrderFindingParams
     type RoutineCircuitType = OrderFindingCircuit.type

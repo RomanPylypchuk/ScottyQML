@@ -12,7 +12,7 @@ object NBernsteinVaziraniInterpreter extends QuantumRoutineInterpreter{
   type RoutineOutput = BitStringOutput
 
   val interpret: Reader[NumberQubits, QuantumMeasurementResult => ValidatedNec[String, BitStringOutput]] =
-    Reader{ case NumberQubits(_) => {
+    Reader{ _ => {
       case QuantumMeasurementResult(neededQubitsStats, _) =>
       val bitString = neededQubitsStats.stats.maxBy { case (_, times) => times }._1
       BitStringOutput(bitString).validNec
