@@ -7,11 +7,11 @@ sealed trait QuantumRoutineOutput
 object QuantumRoutineOutput{
 
   sealed trait VectorOutput extends QuantumRoutineOutput
-  case class BitStringOutput(b: BitRegister) extends VectorOutput
+  case class BitStringOutput(br: BitRegister) extends VectorOutput
 
   sealed trait OneOrTwoToOne extends VectorOutput
   case object OneToOne extends OneOrTwoToOne
-  case class TwoToOne(b: BitRegister) extends OneOrTwoToOne
+  case class TwoToOne(br: BitRegister) extends OneOrTwoToOne
 
   sealed trait ScalarOutput extends QuantumRoutineOutput
   sealed trait ConstantOrBalanced extends ScalarOutput

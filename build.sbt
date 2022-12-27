@@ -20,10 +20,10 @@ libraryDependencies ++= Seq(
   "org.typelevel" %% "spire" % "0.17.0",
 
   "org.nd4j" % "nd4j-api" % "1.0.0-M2",
-  "org.nd4j" % "nd4j-native" % "1.0.0-M2"
+  "org.nd4j" % "nd4j-native" % "1.0.0-M2",
 
-  //"org.nd4j" % "nd4j-backends" % "1.0.0-M2"
-  //"com.github.danielkorzekwa" %% "bayes-scala" % "0.7-SNAPSHOT"
+  "org.scalactic" %% "scalactic" % "3.2.14",
+  "org.scalatest" %% "scalatest" % "3.2.14" % "test"
 )
 
 //resolvers += Resolver.sonatypeRepo("snapshots")

@@ -2,6 +2,7 @@ package qroutines.blocks.routine
 
 import cats.data.Reader
 import cats.data.ValidatedNec
+import qroutines.blocks.measurements.QuantumMeasurementBackend.DefaultScottyBackend
 import qroutines.blocks.measurements.{QuantumMeasurementBackend, QuantumMeasurementParams, QuantumMeasurementResult}
 import quantumroutines.blocks.CircuitParams
 import quantumroutines.blocks.CircuitParams.NumberQubits
@@ -19,7 +20,7 @@ trait QuantumRoutine { self =>
 
 object QuantumRoutine{
 
-    def run[Q <: QuantumRoutine](times: Int, backend: QuantumMeasurementBackend)
+    def run[Q <: QuantumRoutine](times: Int, backend: QuantumMeasurementBackend = DefaultScottyBackend)
         (qr: Q)(qParams: qr.InParamsType): ValidatedNec[String, qr.qrInterpreter.RoutineOutput] = {
 
       val routine = for {

@@ -10,6 +10,7 @@ import scala.annotation.tailrec
 
 object BinarySolver {
 
+
   def augmentedPartition(cond: (Array[Int], Int) => Boolean)
                         (a: Array[Array[Int]], b: Array[Int]) = {
 
@@ -100,6 +101,7 @@ object BinarySolver {
       }
 
       val allDichotomies = List(0,1).naryCross(system.cols)
+      //Search for non-trivial solutions only
       allDichotomies.tail.find(
         dichotomy => satisfiesAll(DenseVector(dichotomy :_*))
       ).map(_.encode[BitRegister])

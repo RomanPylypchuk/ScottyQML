@@ -25,10 +25,8 @@ object NSimonsInterpreter extends QuantumRoutineInterpreter {
         val outcomesMatrix: DenseMatrix[Int] = DenseMatrix(mostProbable.map(br => br.decode[List[Int]]): _*)
         val maybeOracleBits: Option[BitRegister] = binarySolverBruteForce(outcomesMatrix) //TODO - replace with decent solver
 
-          val result: ValidatedNec[String, OneOrTwoToOne] = maybeOracleBits.fold("Could not solve binary system".invalidNec[OneOrTwoToOne]){
-            case br if br.decode[List[Int]].forall(_ == 0) =>  OneToOne.validNec[String]
-            case br => TwoToOne(br).validNec[String]
-          }
+        val result: ValidatedNec[String, OneOrTwoToOne] = maybeOracleBits.fold((OneToOne : OneOrTwoToOne).validNec[String]){
+            br => TwoToOne(br).validNec[String]}
         result
      }
     }

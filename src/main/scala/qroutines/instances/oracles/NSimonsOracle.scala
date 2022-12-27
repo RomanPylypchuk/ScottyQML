@@ -25,7 +25,7 @@ object NSimonsOracle {
     type DefiningType = BitValue //One for identity oracle, Zero for random oracle
 
     val circuit: Reader[NumberQubits, Circuit] = Reader {
-      case nq@NumberQubits(nOracleQubits) =>
+      case NumberQubits(nOracleQubits) =>
         val circuit = definingObject.value match {
           case One(_) => copyToSecondRegister(nOracleQubits)
           case Zero(_) =>
@@ -51,7 +51,7 @@ object NSimonsOracle {
     type DefiningType = BitStringValue
 
     val circuit: Reader[NumberQubits, Circuit] = Reader {
-      case nq@NumberQubits(nOracleQubits) =>
+      case NumberQubits(nOracleQubits) =>
         val oneIdcs: List[Int] = definingObject.value.decodeE[Int, Map[Int, Bit]](nOracleQubits).collect { case (i, One(_)) => i }.toList
         val nonZeroBitIdx: Int = definingObject.value.values.indexWhere(_ == One())
         val maybeAddMod2: List[CNOT] = placeCNOTs(Map(nonZeroBitIdx -> oneIdcs.map(_ + nOracleQubits)))

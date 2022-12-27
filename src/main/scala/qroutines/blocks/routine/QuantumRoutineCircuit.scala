@@ -11,8 +11,9 @@ trait QuantumRoutineCircuit {
 
   val circuit: Reader[InParamsType, Circuit]
 
-  val inverse: Reader[InParamsType, Circuit] =
-    circuit.map(circuit => circuit.dagger)
+  lazy val inverse: Reader[InParamsType, Circuit] = {
+    circuit.map(circ => circ.dagger)
+  }
 }
 
 object QuantumRoutineCircuit{

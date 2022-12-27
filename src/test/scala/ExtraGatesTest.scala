@@ -1,4 +1,4 @@
-
+import qroutines.instances.oracles.NDeutschJoszaOracle.{OneOracle, ZeroOracle}
 
 object ExtraGatesTest extends App{
   ///////////////////////////////////////

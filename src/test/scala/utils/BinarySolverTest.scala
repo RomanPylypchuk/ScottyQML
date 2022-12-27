@@ -34,7 +34,12 @@ object BinarySolverTest extends App{
     Array(0,0,0)
   )
 
+  //println(binarySolverBruteForce(DenseMatrix(m4 :_*)))
 
-  println(binarySolverBruteForce(DenseMatrix(m4 :_*)))
+  val m5= Array(
+    Array(1,1),
+    Array(1,0)
+  )
 
+  println(binarySolverBruteForce(DenseMatrix(m5 :_*)))
 }

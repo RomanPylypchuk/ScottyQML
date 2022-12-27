@@ -14,7 +14,7 @@ case class NInnerProductOracle(definingObject: BitStringValue) extends NOracle {
   type DefiningType = BitStringValue
 
   val circuit: Reader[NumberQubits, Circuit] = Reader {
-    case nq@NumberQubits(nOracleQubits) =>
+    case NumberQubits(nOracleQubits) =>
       val cNOTs = singlePlaceCNOTs(
         definingObject.value.decodeE[Int, Map[Int, Bit]](nOracleQubits).collect {
           case (i, One(_)) => i -> nOracleQubits

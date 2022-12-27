@@ -37,8 +37,10 @@ object GateUtils {
 
   implicit class InverseCircuit(val circuit: Circuit) {
     def dagger: Circuit = {
-       val inverseGates = circuit.gates.map(inverseGate)
-       Circuit(inverseGates.reverse :_*)
+       if (circuit.gates.isEmpty) circuit else {
+         val inverseGates = circuit.gates.map(inverseGate)
+         Circuit(inverseGates.reverse: _*)
+       }
     }
   }
 }
