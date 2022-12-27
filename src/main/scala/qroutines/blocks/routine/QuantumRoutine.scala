@@ -10,7 +10,6 @@ import qroutines.blocks.routine.QuantumRoutineCircuit.DependentQuantumRoutineCir
 
 trait QuantumRoutine { self =>
   type InParamsType <: CircuitParams
-  //type RoutineCircuitType <: DependentQuantumRoutineCircuit
 
   val qrCircuit: DependentQuantumRoutineCircuit{type InParamsType = self.InParamsType}
   val qrMeasureQubits: Reader[qrCircuit.usedRoutine.InParamsType, Set[Int]]
@@ -20,8 +19,8 @@ trait QuantumRoutine { self =>
 
 object QuantumRoutine{
 
-    def run(qr: QuantumRoutine)(times: Int)(qParams: qr.InParamsType)
-           (backend: QuantumMeasurementBackend): ValidatedNec[String,qr.qrInterpreter.RoutineOutput] = {
+    def run[Q <: QuantumRoutine](times: Int, backend: QuantumMeasurementBackend)
+        (qr: Q)(qParams: qr.InParamsType): ValidatedNec[String, qr.qrInterpreter.RoutineOutput] = {
 
       val routine = for {
         circuit <- qr.qrCircuit.circuit
