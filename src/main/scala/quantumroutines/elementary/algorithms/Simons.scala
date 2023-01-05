@@ -6,6 +6,7 @@ import quantumroutines.oracle.OracleOutput.VectorOutput
 import quantumroutines.oracle.instances.SimonsOracle
 import scotty.quantum.ExperimentResult.StateStats
 import scotty.quantum.{BitRegister, Circuit}
+import utils.BinarySolver.binarySolverBruteForce
 import utils.GateUtils.HTensor
 import utils.codec.BiCodec.BiCodecSyntax
 import utils.factory.BitRegisterFactory.{bitBitRegister, stringBitRegister}
@@ -29,6 +30,7 @@ object Simons extends ElementaryCircuit {
       val mostProbable = nonZeroDichotomies.sortBy(_._2).map(_._1).takeRight(oracle.nOracleQubits)
       val outcomesMatrix: DenseMatrix[Int] = DenseMatrix(mostProbable.map(br => br.decode[List[Int]]) :_*)
       println(outcomesMatrix)
-      VectorOutput("00".encode[BitRegister])
+      val maybeOracleBits: Option[BitRegister] = binarySolverBruteForce(outcomesMatrix)
+      VectorOutput(maybeOracleBits.getOrElse(BitRegister()))
   }
 }

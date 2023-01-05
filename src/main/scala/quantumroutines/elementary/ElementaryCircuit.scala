@@ -25,6 +25,7 @@ object ElementaryCircuit {
   implicit class ElementaryRunner[Q <: ElementaryCircuit](val ec: Q){
     def run(times: Int)(oracle: ec.CircuitOracle): ec.CircuitOutput = {
       val circuit: Circuit = ec.circuit(oracle)
+      println(circuit)
       val neededStats: StateStats = measureTimes(times)(circuit).forQubits((0 until oracle.nOracleQubits).toSet)
       //Map results to the desired output of the algorithm
       ec.interpret(oracle)(neededStats)

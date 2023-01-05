@@ -13,6 +13,7 @@ object SimonsOracleTest extends App{
   val resultsTwoToOne = measureForAllInputDichotomies(500)(Some(Set(0,1,2)))(Some(Set(3,4,5)))(threeQubitTwoToOneOracle).map{
     case (inBitStr, st) => inBitStr -> st.stats.head._1.decode[String].reverse
   }
+  println(resultsTwoToOne)
   assert(resultsTwoToOne.keySet.size / 2 == resultsTwoToOne.values.toSet.size)
 
 

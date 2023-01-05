@@ -23,6 +23,7 @@ object QuantumRoutine{
     def run[Q <: QuantumRoutine](times: Int, backend: QuantumMeasurementBackend = DefaultScottyBackend)
         (qr: Q)(qParams: qr.InParamsType): ValidatedNec[String, qr.qrInterpreter.RoutineOutput] = {
 
+
       val routine = for {
         circuit <- qr.qrCircuit.circuit
         usedRoutineParams <- qr.qrCircuit.inParamsToUsedRoutineParams

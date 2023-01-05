@@ -14,6 +14,6 @@ case class NSimons(oracle: NSimonsOracle) extends QuantumRoutine{
   val qrCircuit: NSimonsCircuit = NSimonsCircuit(oracle)
   val qrMeasureQubits: Reader[NumberQubits, Set[Int]] =
     Reader{case NumberQubits(nOracleQubits) =>
-      (nOracleQubits until 2*nOracleQubits).toSet}
+      (0 until nOracleQubits).toSet}
   val qrInterpreter: NSimonsInterpreter.type = NSimonsInterpreter
 }

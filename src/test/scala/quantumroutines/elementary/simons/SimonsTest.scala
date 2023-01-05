@@ -9,7 +9,7 @@ import utils.factory.BitRegisterFactory.stringBitRegister
 
 
 object SimonsTest extends App{
-  println(Simons.run(1000)(IdentityOracle(3)))
+  //println(Simons.run(1000)(IdentityOracle(3)))
 
   val threeQubitTwoToOneOracle: SimonsOracle = TwoToOneOracle(3, "110".encode[BitRegister])
   println(Simons.run(1000)(threeQubitTwoToOneOracle))
