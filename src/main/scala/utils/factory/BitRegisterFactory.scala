@@ -14,11 +14,6 @@ object BitRegisterFactory {
 
   val bitRegisterUnit: BiCodec[BitRegister, BitRegister] = unitCodec[BitRegister]
 
-  //val bitRegisterReverse: BiCodec[BitRegister, BitRegister] = BiCodec(new (BitRegister <=> BitRegister){
-  //  def to: BitRegister => BitRegister = br => BitRegister(br.values.reverse)
-  //  def from: BitRegister => BitRegister = br => BitRegister(br.values.reverse)
-  //})
-
   implicit val stringBitRegister: BitRegisterCodec[String] = bitRegisterUnit.map[String](
     BiCodec(new (BitRegister <=> String) {
       def to: BitRegister => String = _.values.map(_.toHumanString.head).mkString
