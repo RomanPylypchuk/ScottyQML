@@ -4,8 +4,7 @@ import org.scalatest.flatspec.AnyFlatSpec
 import qroutines.blocks.noracle.OracleDefinitions.BitStringValue
 import quantumroutines.blocks.CircuitParams.NumberQubits
 import scotty.quantum.BitRegister
-import spire.algebra.InnerProductSpace
-import utils.Measure.{StateStatsOps, measureForAllInputDichotomies, measureTimes}
+import utils.Measure.measureForAllInputDichotomies
 import utils.algebra.InnerProductMod.InnerProductMod
 import utils.factory.BitRegisterFactory.{stringBitRegister, bitBitRegister}
 import utils.codec.BiCodec.BiCodecSyntax
