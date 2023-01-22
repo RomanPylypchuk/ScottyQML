@@ -8,7 +8,7 @@ import scotty.quantum.ExperimentResult.StateStats
 import scotty.quantum.gate.StandardGate.{CSWAP, SWAP, X}
 import scotty.quantum.gate.{CompositeGate, Controlled, Gate}
 import scotty.quantum.{BitRegister, Circuit}
-import utils.Measure.{StateStatsOps, measureTimes}
+import utils.Measure.measureTimes
 import utils.codec.BiCodec.BiCodecSyntax
 import utils.factory.BitRegisterFactory.decimalBitRegister
 
@@ -17,20 +17,24 @@ object OrderFindingTest extends App{
   //StatsConvergent Test; TODO - fix it
   val measurementOutcome1 = StateStats(List(
     1536.encodeE[Int, BitRegister](11) -> 600,
-  )).reverseQubitOrder
+  ))
+
+  println(measurementOutcome1)
 
   val estimate1 = OrderFinding.statsConvergent(measurementOutcome1.stats.head._1)
   println(estimate1)
 
   val measurementOutcome2 = StateStats(List(
     512.encodeE[Int, BitRegister](11) -> 400
-  )).reverseQubitOrder
+  ))
 
   val estimate2 = OrderFinding.statsConvergent(measurementOutcome2.stats.head._1)
   println(estimate2)
 
   val combineTwoEstimates = OrderFinding.combineOrders(ModularUnitaryParams(7, 15))
   println(combineTwoEstimates(estimate1, estimate2))
+
+  io.StdIn.readLine()
 
   println("Testing mod exp N=15...")
   /////////////////////////////////////////////////////////////////////
@@ -60,7 +64,7 @@ object OrderFindingTest extends App{
         }
   }
 
-  val modFifteenResults = (0 to 0).map { jPower =>
+  val modFifteenResults = (0 to 5).map { jPower =>
     println("Calculating 4^" + math.pow(2, jPower).toInt + "(mod 15) quantum mechanically...")
     val (resultModExpBinary, _) = measureTimes(1000)(Circuit(X(3), modFifteenFourEigenQubits(0)(4)(jPower))).stats.filter { case (_, times) => times != 0 }.head
     val resultModExpDecimal = BitRegister(resultModExpBinary.values.reverse: _*).decodeE[Int, Int](4)
@@ -70,6 +74,7 @@ object OrderFindingTest extends App{
   modFifteenResults.foreach(println)
   assert(modFifteenResults.forall { case (expDecimal, (_, qmDecimal)) => expDecimal == qmDecimal })
 
+  io.StdIn.readLine()
   /////////////////////////////////////////////////////////////////////////////////////////////////
 
   val mod15 = new ModularExponentiation {

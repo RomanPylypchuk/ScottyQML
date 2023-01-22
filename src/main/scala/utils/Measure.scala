@@ -44,7 +44,7 @@ object Measure {
     //TODO - via transform
     def reverseQubitOrder: StateStats =
       measurements.copy(stats =
-        measurements.stats.map{case (dichotomy, times) => BitRegister(dichotomy.values.reverse :_*) -> times}
+        measurements.stats.map{case (dichotomy, times) => dichotomy.reverse -> times}
         )
 
     def forQubits(qubits: Set[Int]): StateStats = {

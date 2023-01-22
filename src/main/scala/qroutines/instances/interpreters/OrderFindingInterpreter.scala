@@ -25,6 +25,7 @@ object OrderFindingInterpreter extends QuantumRoutineInterpreter{
   //Convert only first nPhaseQubits to binary fraction representation of \phi
   val statsConvergent: BitRegister => ValidatedNec[String, Rational] = {
     phaseBinary =>
+
       val nPhaseQubits: Int = phaseBinary.values.length
       val phaseDecimal: Int = phaseBinary.decodeE[Int, Int](nPhaseQubits)
       val estimate: Rational = Rational(phaseDecimal, math.pow(2, nPhaseQubits).toInt)
