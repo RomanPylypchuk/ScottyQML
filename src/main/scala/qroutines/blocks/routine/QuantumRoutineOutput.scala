@@ -1,6 +1,7 @@
 package qroutines.blocks.routine
 
 import scotty.quantum.BitRegister
+import spire.math.Rational
 
 sealed trait QuantumRoutineOutput
 
@@ -14,6 +15,9 @@ object QuantumRoutineOutput{
   case class TwoToOne(br: BitRegister) extends OneOrTwoToOne
 
   sealed trait ScalarOutput extends QuantumRoutineOutput
+
+  case class RationalOutput(x: Rational) extends ScalarOutput
+
   sealed trait ConstantOrBalanced extends ScalarOutput
   case object Constant extends ConstantOrBalanced
   case object Balanced extends ConstantOrBalanced

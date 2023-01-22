@@ -62,6 +62,8 @@ object BitRegisterFactory {
 
   implicit class BitRegisterTo(bitRegister: BitRegister) {
 
+    def reverse: BitRegister = BitRegister(bitRegister.values.reverse :_*)
+
     //TODO - is it possible to implement this via BiCodec?
     def toCircuit: Circuit = {
       val nQubits = bitRegister.size

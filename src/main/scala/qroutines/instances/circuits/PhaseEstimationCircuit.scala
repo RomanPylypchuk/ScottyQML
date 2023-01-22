@@ -3,7 +3,6 @@ package qroutines.instances.circuits
 import cats.data.Reader
 import qroutines.blocks.routine.QuantumRoutineCircuit.DependentQuantumRoutineCircuit
 import quantumroutines.blocks.CircuitParams.{NumberQubits, QPEParams, QPEQubits}
-import quantumroutines.blocks.CircuitWithParams
 import scotty.quantum.Circuit
 import utils.GateUtils.HTensor
 
@@ -44,7 +43,6 @@ object PhaseEstimationCircuit extends DependentQuantumRoutineCircuit {
     }
 
     for {
-      param <- Reader[QPEParams, QPEParams](identity)
       preQftCirc <- preQft
       qftParams <- inParamsToUsedRoutineParams
     } yield {

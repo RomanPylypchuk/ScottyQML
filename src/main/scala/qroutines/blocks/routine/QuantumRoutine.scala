@@ -1,16 +1,15 @@
 package qroutines.blocks.routine
 
-import cats.data.Reader
-import cats.data.ValidatedNec
+import cats.data.{Reader, ValidatedNec}
 import qroutines.blocks.measurements.QuantumMeasurementBackend.DefaultScottyBackend
-import qroutines.blocks.measurements.{QuantumMeasurementBackend, QuantumMeasurementParams, QuantumMeasurementResult}
-import quantumroutines.blocks.CircuitParams
-import quantumroutines.blocks.CircuitParams.NumberQubits
-import scotty.quantum.Circuit
+import qroutines.blocks.measurements.{QuantumMeasurementBackend, QuantumMeasurementParams}
 import qroutines.blocks.routine.QuantumRoutineCircuit.DependentQuantumRoutineCircuit
+import quantumroutines.blocks.CircuitParams
 
 trait QuantumRoutine { self =>
   type InParamsType <: CircuitParams
+
+  //TODO - fix RoutineCircuitType type member, e.g. as in NOrderFinding
 
   val qrCircuit: DependentQuantumRoutineCircuit{type InParamsType = self.InParamsType}
   val qrMeasureQubits: Reader[qrCircuit.usedRoutine.InParamsType, Set[Int]]
