@@ -1,7 +1,5 @@
 package quantumroutines.qft
 
-import cats.implicits.catsSyntaxValidatedIdBinCompat0
-
 
 object ShorTest extends App {
 
