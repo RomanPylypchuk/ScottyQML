@@ -1,9 +1,8 @@
 package qroutines.instances.circuits
 
 import cats.data.Reader
+import qroutines.blocks.CircuitParams.NumberQubits
 import qroutines.blocks.routine.QuantumRoutineCircuit.IndependentQuantumRoutineCircuit
-import quantumroutines.blocks.CircuitParams.NumberQubits
-import quantumroutines.blocks.CircuitWithParams
 import scotty.quantum.Circuit
 import scotty.quantum.gate.StandardGate.{CPHASE, H, SWAP}
 import scotty.quantum.gate.{ControlGate, Gate}

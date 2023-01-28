@@ -1,10 +1,10 @@
 package qroutines.instances.procedures
 
 import org.scalatest.flatspec.AnyFlatSpec
+import qroutines.blocks.CircuitParams.OrderFindingParams
+import qroutines.blocks.modular.ModularUnitaryParams
 import qroutines.blocks.procedure.QuantumProcedure
 import qroutines.instances.routines.qft.mod15
-import quantumroutines.blocks.CircuitParams.OrderFindingParams
-import quantumroutines.qft.ModularUnitaryParams
 
 class ShorProcedureTest extends AnyFlatSpec{
 

@@ -1,10 +1,9 @@
 package qroutines.instances.circuits.elementary
 
 import cats.data.Reader
-import qroutines.blocks.routine.QuantumRoutineCircuit.DependentQuantumRoutineCircuit
+import qroutines.blocks.CircuitParams.NumberQubits
 import qroutines.blocks.noracle.NOracle
-import quantumroutines.blocks.CircuitParams.NumberQubits
-import quantumroutines.blocks.CircuitWithParams
+import qroutines.blocks.routine.QuantumRoutineCircuit.DependentQuantumRoutineCircuit
 import scotty.quantum.Circuit
 
 trait NElementaryCircuit extends DependentQuantumRoutineCircuit{

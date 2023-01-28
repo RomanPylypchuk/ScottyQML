@@ -1,9 +1,9 @@
 package qroutines.instances.oracles
 
 import org.scalatest.flatspec.AnyFlatSpec
+import qroutines.blocks.CircuitParams.NumberQubits
 import qroutines.blocks.noracle.OracleDefinitions.BitShiftValue
-import qroutines.instances.oracles.NDeutschJoszaOracle.{BalancedOracle, OneOracle, ZeroOracle}
-import quantumroutines.blocks.CircuitParams.NumberQubits
+import qroutines.instances.oracles.NDeutschJoszaOracle.{BalancedOracle, OneOracle}
 import scotty.quantum.BitRegister
 import scotty.quantum.ExperimentResult.StateStats
 import utils.Measure.measureForAllInputDichotomies

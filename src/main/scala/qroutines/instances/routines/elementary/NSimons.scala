@@ -1,11 +1,11 @@
 package qroutines.instances.routines.elementary
 
 import cats.data.Reader
-import qroutines.blocks.routine.{QuantumRoutine, QuantumRoutineInterpreter}
+import qroutines.blocks.CircuitParams.NumberQubits
+import qroutines.blocks.routine.QuantumRoutine
 import qroutines.instances.circuits.elementary.NSimonsCircuit
 import qroutines.instances.interpreters.elementary.NSimonsInterpreter
 import qroutines.instances.oracles.NSimonsOracle
-import quantumroutines.blocks.CircuitParams.NumberQubits
 
 case class NSimons(oracle: NSimonsOracle) extends QuantumRoutine{
   type InParamsType = NumberQubits

@@ -1,8 +1,9 @@
 package qroutines.blocks.procedure
 
 import cats.data.{Reader, ValidatedNec}
+import qroutines.blocks.CircuitParams
 import qroutines.blocks.routine.QuantumRoutineOutput
-import quantumroutines.blocks.CircuitParams
+
 
 sealed trait ProcedureStep[A, +P <: CircuitParams]{
   //val step: Reader[A, ValidatedNec[String, A]]

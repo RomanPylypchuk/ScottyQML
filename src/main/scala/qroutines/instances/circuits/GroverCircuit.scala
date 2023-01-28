@@ -2,9 +2,9 @@ package qroutines.instances.circuits
 
 import cats.data.Reader
 import qml.encoding.amplitude.MultipleControlled.multipleControlled
+import qroutines.blocks.CircuitParams.NumberQubits
 import qroutines.blocks.routine.QuantumRoutineCircuit.DependentQuantumRoutineCircuit
 import qroutines.instances.oracles.GroverOracle
-import quantumroutines.blocks.CircuitParams.NumberQubits
 import scotty.quantum.Circuit
 import scotty.quantum.gate.StandardGate.{H, X, Z}
 import utils.GateUtils.{HTensor, XTensor}

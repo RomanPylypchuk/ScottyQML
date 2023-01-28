@@ -1,7 +1,7 @@
 package qroutines.instances.circuits.elementary
 
 import cats.data.Reader
-import quantumroutines.blocks.CircuitParams.NumberQubits
+import qroutines.blocks.CircuitParams.NumberQubits
 import scotty.quantum.Circuit
 import scotty.quantum.gate.StandardGate.{H, X}
 import utils.GateUtils.HTensor

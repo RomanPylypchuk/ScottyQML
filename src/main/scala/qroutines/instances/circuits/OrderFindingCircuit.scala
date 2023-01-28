@@ -2,9 +2,8 @@ package qroutines.instances.circuits
 
 import breeze.numerics.log2
 import cats.data.Reader
+import qroutines.blocks.CircuitParams.{NumberQubits, OrderFindingParams, QPEParams, QPEQubits}
 import qroutines.blocks.routine.QuantumRoutineCircuit.DependentQuantumRoutineCircuit
-import quantumroutines.blocks.CircuitParams.{NumberQubits, OrderFindingParams, QPEParams, QPEQubits}
-import quantumroutines.blocks.CircuitWithParams
 import scotty.quantum.Circuit
 import scotty.quantum.gate.StandardGate.X
 

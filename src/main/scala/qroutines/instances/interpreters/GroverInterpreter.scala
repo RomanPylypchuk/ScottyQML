@@ -2,10 +2,10 @@ package qroutines.instances.interpreters
 
 import cats.data.{Reader, ValidatedNec}
 import cats.implicits.catsSyntaxValidatedIdBinCompat0
+import qroutines.blocks.CircuitParams.NumberQubits
 import qroutines.blocks.measurements.QuantumMeasurementResult
 import qroutines.blocks.routine.QuantumRoutineInterpreter
 import qroutines.blocks.routine.QuantumRoutineOutput.BitStringsOutput
-import quantumroutines.blocks.CircuitParams.NumberQubits
 
 object GroverInterpreter extends QuantumRoutineInterpreter{
   type InParamsType = NumberQubits

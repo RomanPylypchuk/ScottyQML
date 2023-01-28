@@ -1,11 +1,11 @@
 package qroutines.instances.routines
 
 import cats.data.Reader
+import qroutines.blocks.CircuitParams.NumberQubits
 import qroutines.blocks.routine.QuantumRoutine
 import qroutines.instances.circuits.GroverCircuit
 import qroutines.instances.interpreters.GroverInterpreter
 import qroutines.instances.oracles.GroverOracle
-import quantumroutines.blocks.CircuitParams.NumberQubits
 
 case class NGrover(oracle: GroverOracle) extends QuantumRoutine{
   type InParamsType = NumberQubits

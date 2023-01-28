@@ -2,12 +2,12 @@ package qroutines.instances.procedures
 
 import cats.data.{Reader, ValidatedNec}
 import cats.implicits.catsSyntaxValidatedIdBinCompat0
+import qroutines.blocks.CircuitParams.OrderFindingParams
+import qroutines.blocks.modular.ModularUnitaryParams
 import qroutines.blocks.procedure.ProcedureStep._
 import qroutines.blocks.procedure.{ProcedureStep, QuantumProcedure}
 import qroutines.blocks.routine.QuantumRoutineOutput.LongOutput
 import qroutines.instances.routines.qft.NShor
-import quantumroutines.blocks.CircuitParams.OrderFindingParams
-import quantumroutines.qft.ModularUnitaryParams
 import utils.algebra.NumberTheoryRoutines.gcd
 
 object ShorProcedure extends QuantumProcedure[ModularUnitaryParams] {

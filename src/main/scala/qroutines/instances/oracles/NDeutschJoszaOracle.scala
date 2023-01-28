@@ -1,9 +1,9 @@
 package qroutines.instances.oracles
 
 import cats.data.Reader
+import qroutines.blocks.CircuitParams.NumberQubits
 import qroutines.blocks.noracle.NOracle
 import qroutines.blocks.noracle.OracleDefinitions.{BitShiftValue, BitValue}
-import quantumroutines.blocks.CircuitParams.NumberQubits
 import scotty.quantum.gate.StandardGate.X
 import scotty.quantum.{BitRegister, Circuit, One, Zero}
 import utils.GateUtils.singlePlaceCNOTs

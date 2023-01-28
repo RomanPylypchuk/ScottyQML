@@ -1,7 +1,6 @@
-package quantumroutines.blocks
+package qroutines.blocks
 
-import qroutines.blocks.{ControlledUnitaryPower, NModularExponentiation}
-import quantumroutines.qft.ModularUnitaryParams
+import qroutines.blocks.modular.{ModularUnitaryParams, NModularExponentiation}
 import scotty.quantum.Circuit
 
 sealed trait CircuitParams
@@ -12,8 +11,4 @@ object CircuitParams{
   case class QPEQubits(nPhaseQubits: NumberQubits, nEigenQubits: NumberQubits) extends CircuitParams
   case class QPEParams(qubits: QPEQubits, eigenStatePrep: Circuit, uPowerGen: ControlledUnitaryPower) extends CircuitParams
   case class OrderFindingParams(modParams: ModularUnitaryParams, modExp: NModularExponentiation) extends CircuitParams
-
-
-
-  case class QPEQubitsOld(nPhaseQubits: Int, nEigenQubits: Int) extends CircuitParams
 }

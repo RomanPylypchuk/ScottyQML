@@ -4,12 +4,12 @@ import cats.data.Reader
 import cats.implicits.catsSyntaxValidatedIdBinCompat0
 import org.scalatest.flatspec.AnyFlatSpec
 import qml.encoding.amplitude.MultipleControlled.controlledConfigurationGate
+import qroutines.blocks.CircuitParams.NumberQubits
 import qroutines.blocks.measurements.QuantumMeasurementBackend.DefaultScottyBackend
 import qroutines.blocks.noracle.OracleDefinitions.{BitStringValue, BitStrings}
 import qroutines.blocks.routine.QuantumRoutine
 import qroutines.blocks.routine.QuantumRoutineOutput.BitStringsOutput
 import qroutines.instances.oracles.GroverOracle
-import quantumroutines.blocks.CircuitParams.NumberQubits
 import scotty.quantum.gate.StandardGate.{CCNOT, X}
 import scotty.quantum.{Bit, BitRegister, Circuit}
 import utils.codec.BiCodec.BiCodecSyntax

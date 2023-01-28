@@ -1,11 +1,10 @@
 package qroutines.instances.routines.qft
 
 import cats.data.Reader
-
-import quantumroutines.blocks.CircuitParams.{QPEParams, OrderFindingParams}
+import qroutines.blocks.CircuitParams.{OrderFindingParams, QPEParams}
+import qroutines.blocks.routine.QuantumRoutine
 import qroutines.instances.circuits.OrderFindingCircuit
 import qroutines.instances.interpreters.OrderFindingInterpreter
-import qroutines.blocks.routine.QuantumRoutine
 
 object NOrderFinding extends QuantumRoutine{
  type InParamsType = OrderFindingParams

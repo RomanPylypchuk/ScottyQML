@@ -2,10 +2,10 @@ package qroutines.instances.interpreters
 
 import cats.data.{Reader, ValidatedNec}
 import cats.implicits.catsSyntaxValidatedIdBinCompat0
+import qroutines.blocks.CircuitParams.OrderFindingParams
 import qroutines.blocks.measurements.QuantumMeasurementResult
 import qroutines.blocks.routine.QuantumRoutineInterpreter
 import qroutines.blocks.routine.QuantumRoutineOutput.LongOutput
-import quantumroutines.blocks.CircuitParams.OrderFindingParams
 import utils.algebra.NumberTheoryRoutines.gcd
 
 

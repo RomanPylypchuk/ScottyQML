@@ -1,13 +1,13 @@
 package qroutines.instances.oracles
 
 import org.scalatest.flatspec.AnyFlatSpec
+import qroutines.blocks.CircuitParams.NumberQubits
 import qroutines.blocks.noracle.OracleDefinitions.BitStringValue
-import quantumroutines.blocks.CircuitParams.NumberQubits
 import scotty.quantum.BitRegister
 import utils.Measure.measureForAllInputDichotomies
 import utils.algebra.InnerProductMod.InnerProductMod
-import utils.factory.BitRegisterFactory.{stringBitRegister, bitBitRegister}
 import utils.codec.BiCodec.BiCodecSyntax
+import utils.factory.BitRegisterFactory.{bitBitRegister, stringBitRegister}
 
 class InnerProductOracleTest extends AnyFlatSpec{
 

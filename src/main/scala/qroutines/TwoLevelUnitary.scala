@@ -10,7 +10,7 @@ import utils.codec.BiCodec.BiCodecSyntax
 import utils.factory.BitRegisterFactory.stringBitRegister
 import utils.paddedIntToBinary
 
-object TwoLevelUnitary extends App{
+object TwoLevelUnitary{
 
   def twoLevelUnitary(nQubits: Int)(edge1: Int, edge2: Int)(singleGate: Matrix): Circuit = {
     val List(bin1, bin2) = List(edge1, edge2).sorted.map{i =>

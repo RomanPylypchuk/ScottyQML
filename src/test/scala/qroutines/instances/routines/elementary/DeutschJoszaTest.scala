@@ -3,13 +3,13 @@ package qroutines.instances.routines.elementary
 import cats.data.ValidatedNec
 import cats.implicits.catsSyntaxValidatedIdBinCompat0
 import org.scalatest.flatspec.AnyFlatSpec
+import qroutines.blocks.CircuitParams.NumberQubits
 import qroutines.blocks.measurements.QuantumMeasurementBackend.DefaultScottyBackend
 import qroutines.blocks.noracle.OracleDefinitions.BitShiftValue
 import qroutines.blocks.routine.QuantumRoutine
 import qroutines.blocks.routine.QuantumRoutineOutput._
 import qroutines.instances.oracles.NDeutschJoszaOracle
 import qroutines.instances.oracles.NDeutschJoszaOracle._
-import quantumroutines.blocks.CircuitParams.NumberQubits
 
 class DeutschJoszaTest extends AnyFlatSpec {
 

@@ -2,10 +2,10 @@ package qroutines.instances.routines.qft
 
 import cats.implicits.catsSyntaxValidatedIdBinCompat0
 import org.scalatest.flatspec.AnyFlatSpec
+import qroutines.blocks.CircuitParams.OrderFindingParams
+import qroutines.blocks.modular.ModularUnitaryParams
 import qroutines.blocks.routine.QuantumRoutine
 import qroutines.blocks.routine.QuantumRoutineOutput.LongOutput
-import quantumroutines.blocks.CircuitParams.OrderFindingParams
-import quantumroutines.qft.ModularUnitaryParams
 import scotty.quantum.gate.StandardGate.X
 import scotty.quantum.{BitRegister, Circuit}
 import utils.Measure.measureTimes

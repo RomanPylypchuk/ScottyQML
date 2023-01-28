@@ -1,8 +1,8 @@
 package qroutines.instances.circuits.elementary
 
 import cats.data.Reader
+import qroutines.blocks.CircuitParams.NumberQubits
 import qroutines.instances.oracles.NSimonsOracle
-import quantumroutines.blocks.CircuitParams.NumberQubits
 import scotty.quantum.Circuit
 import utils.GateUtils.HTensor
 

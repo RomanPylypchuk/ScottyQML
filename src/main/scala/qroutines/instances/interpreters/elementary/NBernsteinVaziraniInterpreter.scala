@@ -2,10 +2,10 @@ package qroutines.instances.interpreters.elementary
 
 import cats.data.{Reader, ValidatedNec}
 import cats.implicits.catsSyntaxValidatedIdBinCompat0
+import qroutines.blocks.CircuitParams.NumberQubits
 import qroutines.blocks.measurements.QuantumMeasurementResult
+import qroutines.blocks.routine.QuantumRoutineInterpreter
 import qroutines.blocks.routine.QuantumRoutineOutput.BitStringOutput
-import qroutines.blocks.routine.{QuantumRoutineInterpreter, QuantumRoutineOutput}
-import quantumroutines.blocks.CircuitParams.NumberQubits
 
 object NBernsteinVaziraniInterpreter extends QuantumRoutineInterpreter{
   type InParamsType = NumberQubits

@@ -1,8 +1,8 @@
 package qroutines.blocks.routine
 
 import cats.data.Reader
-import quantumroutines.blocks.CircuitParams.NoParams
-import quantumroutines.blocks.{CircuitParams, CircuitWithParams}
+import qroutines.blocks.CircuitParams
+import qroutines.blocks.CircuitParams.NoParams
 import scotty.quantum.Circuit
 import utils.GateUtils.InverseCircuit
 

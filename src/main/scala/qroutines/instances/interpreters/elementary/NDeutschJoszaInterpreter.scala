@@ -2,10 +2,10 @@ package qroutines.instances.interpreters.elementary
 
 import cats.data.{Reader, ValidatedNec}
 import cats.implicits.catsSyntaxValidatedIdBinCompat0
+import qroutines.blocks.CircuitParams.NumberQubits
 import qroutines.blocks.measurements.QuantumMeasurementResult
 import qroutines.blocks.routine.QuantumRoutineInterpreter
 import qroutines.blocks.routine.QuantumRoutineOutput.{Balanced, Constant, ConstantOrBalanced}
-import quantumroutines.blocks.CircuitParams.NumberQubits
 import scotty.quantum.BitRegister
 import utils.codec.BiCodec.BiCodecSyntax
 import utils.factory.BitRegisterFactory.stringBitRegister

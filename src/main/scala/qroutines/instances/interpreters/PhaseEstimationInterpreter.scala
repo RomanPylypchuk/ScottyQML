@@ -2,10 +2,10 @@ package qroutines.instances.interpreters
 
 import cats.data.{Reader, ValidatedNec}
 import cats.implicits.catsSyntaxValidatedIdBinCompat0
+import qroutines.blocks.CircuitParams.{NumberQubits, QPEParams}
 import qroutines.blocks.measurements.QuantumMeasurementResult
 import qroutines.blocks.routine.QuantumRoutineInterpreter
 import qroutines.blocks.routine.QuantumRoutineOutput.RationalOutput
-import quantumroutines.blocks.CircuitParams.{NumberQubits, QPEParams}
 import spire.math.Rational
 import utils.codec.BiCodec.BiCodecSyntax
 import utils.factory.BitRegisterFactory.{BitRegisterOps, decimalBitRegister}

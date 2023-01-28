@@ -3,7 +3,7 @@ package qroutines.instances.interpreters
 import cats.data.ValidatedNec
 import cats.implicits.catsSyntaxValidatedIdBinCompat0
 import org.scalatest.flatspec.AnyFlatSpec
-import quantumroutines.qft.ModularUnitaryParams
+import qroutines.blocks.modular.ModularUnitaryParams
 import scotty.quantum.BitRegister
 import utils.codec.BiCodec.BiCodecSyntax
 import utils.factory.BitRegisterFactory.decimalBitRegister

@@ -2,10 +2,9 @@ package qroutines.instances.interpreters
 
 import cats.implicits.catsSyntaxValidatedIdBinCompat0
 import org.scalatest.flatspec.AnyFlatSpec
-import qroutines.blocks.NModularExponentiation
+import qroutines.blocks.CircuitParams.OrderFindingParams
+import qroutines.blocks.modular.{ModularUnitaryParams, NModularExponentiation}
 import qroutines.blocks.routine.QuantumRoutineOutput.LongOutput
-import quantumroutines.blocks.CircuitParams.OrderFindingParams
-import quantumroutines.qft.ModularUnitaryParams
 
 class ShorInterpreterTest extends AnyFlatSpec{
 

@@ -3,12 +3,12 @@ package qroutines.instances.routines.elementary
 import cats.data.ValidatedNec
 import cats.implicits.catsSyntaxValidatedIdBinCompat0
 import org.scalatest.flatspec.AnyFlatSpec
+import qroutines.blocks.CircuitParams.NumberQubits
 import qroutines.blocks.measurements.QuantumMeasurementBackend.DefaultScottyBackend
 import qroutines.blocks.noracle.OracleDefinitions.BitStringValue
 import qroutines.blocks.routine.QuantumRoutine
 import qroutines.blocks.routine.QuantumRoutineOutput.BitStringOutput
 import qroutines.instances.oracles.NInnerProductOracle
-import quantumroutines.blocks.CircuitParams.NumberQubits
 import scotty.quantum.BitRegister
 import utils.codec.BiCodec.BiCodecSyntax
 import utils.factory.BitRegisterFactory.stringBitRegister

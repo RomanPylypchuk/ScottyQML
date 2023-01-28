@@ -1,9 +1,9 @@
 package qroutines.instances.oracles
 
 import org.scalatest.flatspec.AnyFlatSpec
+import qroutines.blocks.CircuitParams.NumberQubits
 import qroutines.blocks.noracle.OracleDefinitions.BitStringValue
 import qroutines.instances.oracles.NSimonsOracle.{NIdentityOracle, NRandomOneToOneOracle, TwoToOneOracle}
-import quantumroutines.blocks.CircuitParams.NumberQubits
 import scotty.quantum.BitRegister
 import utils.Measure.measureForAllInputDichotomies
 import utils.codec.BiCodec.BiCodecSyntax

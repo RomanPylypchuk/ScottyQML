@@ -1,8 +1,8 @@
 package qroutines.instances.routines
 
 import breeze.numerics.log2
-import qroutines.blocks.{ControlledUnitaryPower, NModularExponentiation}
-import quantumroutines.qft.ModularUnitaryParams
+import qroutines.blocks.ControlledUnitaryPower
+import qroutines.blocks.modular.{ModularUnitaryParams, NModularExponentiation}
 import scotty.quantum.Circuit
 import scotty.quantum.gate.StandardGate.{CSWAP, SWAP, X}
 import scotty.quantum.gate.{CompositeGate, Controlled, Gate}

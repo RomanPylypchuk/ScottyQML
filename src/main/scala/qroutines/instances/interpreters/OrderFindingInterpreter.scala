@@ -3,11 +3,11 @@ package qroutines.instances.interpreters
 
 import cats.data.{Reader, ValidatedNec}
 import cats.implicits.{catsSyntaxTuple2Semigroupal, catsSyntaxValidatedIdBinCompat0}
+import qroutines.blocks.CircuitParams.OrderFindingParams
 import qroutines.blocks.measurements.QuantumMeasurementResult
+import qroutines.blocks.modular.ModularUnitaryParams
 import qroutines.blocks.routine.QuantumRoutineInterpreter
 import qroutines.blocks.routine.QuantumRoutineOutput.LongOutput
-import quantumroutines.blocks.CircuitParams.OrderFindingParams
-import quantumroutines.qft.ModularUnitaryParams
 import scotty.quantum.BitRegister
 import spire.math.Rational
 import utils.Measure.StateStatsOps

@@ -1,7 +1,7 @@
 package qroutines.instances.circuits
 
 import org.scalatest.flatspec.AnyFlatSpec
-import quantumroutines.blocks.CircuitParams.NumberQubits
+import qroutines.blocks.CircuitParams.NumberQubits
 import scotty.quantum.ExperimentResult.StateStats
 import utils.Measure.measureForAllInputDichotomies
 import utils.codec.BiCodec.BiCodecSyntax

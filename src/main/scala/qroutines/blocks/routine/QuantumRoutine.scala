@@ -1,10 +1,10 @@
 package qroutines.blocks.routine
 
 import cats.data.{Reader, ValidatedNec}
+import qroutines.blocks.CircuitParams
 import qroutines.blocks.measurements.QuantumMeasurementBackend.DefaultScottyBackend
 import qroutines.blocks.measurements.{QuantumMeasurementBackend, QuantumMeasurementParams}
 import qroutines.blocks.routine.QuantumRoutineCircuit.DependentQuantumRoutineCircuit
-import quantumroutines.blocks.CircuitParams
 
 trait QuantumRoutine { self =>
   type InParamsType <: CircuitParams

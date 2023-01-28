@@ -3,15 +3,14 @@ package qroutines.instances.interpreters.elementary
 import breeze.linalg.DenseMatrix
 import cats.data.{Reader, ValidatedNec}
 import cats.implicits.catsSyntaxValidatedIdBinCompat0
+import qroutines.blocks.CircuitParams.NumberQubits
 import qroutines.blocks.measurements.QuantumMeasurementResult
 import qroutines.blocks.routine.QuantumRoutineInterpreter
-import qroutines.blocks.routine.QuantumRoutineOutput.{BitStringOutput, OneOrTwoToOne, OneToOne, TwoToOne}
-import quantumroutines.blocks.CircuitParams.NumberQubits
-import quantumroutines.oracle.OracleOutput.VectorOutput
+import qroutines.blocks.routine.QuantumRoutineOutput.{OneOrTwoToOne, OneToOne, TwoToOne}
 import scotty.quantum.BitRegister
 import utils.BinarySolver.binarySolverBruteForce
 import utils.codec.BiCodec.BiCodecSyntax
-import utils.factory.BitRegisterFactory.{bitBitRegister, stringBitRegister}
+import utils.factory.BitRegisterFactory.bitBitRegister
 
 object NSimonsInterpreter extends QuantumRoutineInterpreter {
   type InParamsType = NumberQubits

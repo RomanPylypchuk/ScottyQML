@@ -1,8 +1,8 @@
 package qroutines.blocks.noracle
 
+import qroutines.blocks.CircuitParams.NumberQubits
 import qroutines.blocks.NeedsDefinitionBy
 import qroutines.blocks.routine.QuantumRoutineCircuit.IndependentQuantumRoutineCircuit
-import quantumroutines.blocks.CircuitParams.NumberQubits
 
 trait NOracle extends IndependentQuantumRoutineCircuit with NeedsDefinitionBy[OracleDefinitions]{
   type InParamsType = NumberQubits

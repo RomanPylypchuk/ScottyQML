@@ -1,10 +1,9 @@
 package qroutines.instances.routines.qft
 
-import qroutines.blocks.routine.QuantumRoutine
-import quantumroutines.blocks.CircuitParams.{QPEParams, OrderFindingParams}
-import qroutines.instances.circuits.OrderFindingCircuit
 import cats.data.Reader
-import quantumroutines.blocks.CircuitParams
+import qroutines.blocks.CircuitParams.{OrderFindingParams, QPEParams}
+import qroutines.blocks.routine.QuantumRoutine
+import qroutines.instances.circuits.OrderFindingCircuit
 import qroutines.instances.interpreters.ShorInterpreter
 
 object NShor extends QuantumRoutine{

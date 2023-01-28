@@ -1,11 +1,11 @@
 package qroutines.instances.routines.elementary
 
 import cats.data.Reader
+import qroutines.blocks.CircuitParams.NumberQubits
 import qroutines.blocks.routine.QuantumRoutine
 import qroutines.instances.circuits.elementary.NDeutschJoszaCircuit
 import qroutines.instances.interpreters.elementary.NDeutschJoszaInterpreter
 import qroutines.instances.oracles.NDeutschJoszaOracle
-import quantumroutines.blocks.CircuitParams.NumberQubits
 
 case class NDeutschJosza(oracle: NDeutschJoszaOracle) extends QuantumRoutine{
   type InParamsType = NumberQubits
