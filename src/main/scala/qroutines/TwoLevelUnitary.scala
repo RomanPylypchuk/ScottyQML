@@ -1,4 +1,4 @@
-package quantumroutines
+package qroutines
 
 import qml.encoding.amplitude.MultipleControlled.controlledConfigurationGate
 import scotty.quantum.QuantumContext.Matrix
