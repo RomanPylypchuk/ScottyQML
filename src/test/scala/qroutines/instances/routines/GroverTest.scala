@@ -15,7 +15,7 @@ import scotty.quantum.{Bit, BitRegister, Circuit}
 import utils.codec.BiCodec.BiCodecSyntax
 import utils.factory.BitRegisterFactory.{BitRegisterOps, controlMapBitRegister, stringBitRegister}
 
-class NGroverTest extends AnyFlatSpec{
+class GroverTest extends AnyFlatSpec{
 
   "Grover output for Oracle w = |11>" should "11" in {
     val w = "11".encode[BitRegister]
@@ -26,7 +26,7 @@ class NGroverTest extends AnyFlatSpec{
       val circuit: Reader[NumberQubits, Circuit] = Reader(_ => Circuit(CCNOT(0,1,2))) //only f(1,1) = 1
     }
 
-    val result = QuantumRoutine.run(1000, DefaultScottyBackend)(NGrover(test2Oracle))(NumberQubits(3))
+    val result = QuantumRoutine.run(1000, DefaultScottyBackend)(Grover(test2Oracle))(NumberQubits(3))
     assert(result == BitStringsOutput(List(w)).validNec)
   }
 
@@ -44,7 +44,7 @@ class NGroverTest extends AnyFlatSpec{
       }
     }
 
-    val result = QuantumRoutine.run(1000, DefaultScottyBackend)(NGrover(test3Oracle))(NumberQubits(4))
+    val result = QuantumRoutine.run(1000, DefaultScottyBackend)(Grover(test3Oracle))(NumberQubits(4))
     assert(result == BitStringsOutput(ws.map(_.reverse)).validNec)
   }
 

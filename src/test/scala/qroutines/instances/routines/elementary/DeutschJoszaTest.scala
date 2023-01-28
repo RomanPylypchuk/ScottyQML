@@ -8,13 +8,13 @@ import qroutines.blocks.measurements.QuantumMeasurementBackend.DefaultScottyBack
 import qroutines.blocks.noracle.OracleDefinitions.BitShiftValue
 import qroutines.blocks.routine.QuantumRoutine
 import qroutines.blocks.routine.QuantumRoutineOutput._
-import qroutines.instances.oracles.NDeutschJoszaOracle
-import qroutines.instances.oracles.NDeutschJoszaOracle._
+import qroutines.instances.oracles.DeutschJoszaOracle
+import qroutines.instances.oracles.DeutschJoszaOracle._
 
 class DeutschJoszaTest extends AnyFlatSpec {
 
-  val runDeutschJosza: NDeutschJoszaOracle => ValidatedNec[String, ConstantOrBalanced] = { djOracle =>
-    QuantumRoutine.run(1000, DefaultScottyBackend)(NDeutschJosza(djOracle))(NumberQubits(4))}
+  val runDeutschJosza: DeutschJoszaOracle => ValidatedNec[String, ConstantOrBalanced] = { djOracle =>
+    QuantumRoutine.run(1000, DefaultScottyBackend)(DeutschJosza(djOracle))(NumberQubits(4))}
 
   "Deutsch Josza output for Zero Oracle" should "be Constant" in {
     assert(runDeutschJosza(ZeroOracle) == Constant.validNec)

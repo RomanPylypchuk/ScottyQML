@@ -2,13 +2,13 @@ package qroutines.instances.circuits.elementary
 
 import cats.data.Reader
 import qroutines.blocks.CircuitParams.NumberQubits
-import qroutines.instances.oracles.NSimonsOracle
+import qroutines.instances.oracles.SimonsOracle
 import scotty.quantum.Circuit
 import utils.GateUtils.HTensor
 
-case class NSimonsCircuit(usedRoutine: NSimonsOracle) extends NElementaryCircuit{
+case class SimonsCircuit(usedRoutine: SimonsOracle) extends ElementaryCircuit{
 
-  type UsedRoutineType = NSimonsOracle
+  type UsedRoutineType = SimonsOracle
 
   val inParamsToUsedRoutineParams: Reader[NumberQubits, NumberQubits] = Reader{
     nq => nq.copy(nQubits = nq.nQubits / 2)

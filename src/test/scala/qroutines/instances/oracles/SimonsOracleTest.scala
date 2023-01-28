@@ -3,7 +3,7 @@ package qroutines.instances.oracles
 import org.scalatest.flatspec.AnyFlatSpec
 import qroutines.blocks.CircuitParams.NumberQubits
 import qroutines.blocks.noracle.OracleDefinitions.BitStringValue
-import qroutines.instances.oracles.NSimonsOracle.{NIdentityOracle, NRandomOneToOneOracle, TwoToOneOracle}
+import qroutines.instances.oracles.SimonsOracle.{IdentityOracle, RandomOneToOneOracle, TwoToOneOracle}
 import scotty.quantum.BitRegister
 import utils.Measure.measureForAllInputDichotomies
 import utils.codec.BiCodec.BiCodecSyntax
@@ -22,7 +22,7 @@ class SimonsOracleTest extends AnyFlatSpec{
   }
 
   "IdentityOracle" should "map input to output" in {
-    val idOracle: NIdentityOracle.type = NIdentityOracle
+    val idOracle: IdentityOracle.type = IdentityOracle
     val resultsIdentity = measureForAllInputDichotomies(500)(Some(Set(0,1,2)))(Some(Set(3,4,5)))(idOracle.circuit(nQubits)).map{
       case (inBitStr, st) => inBitStr -> st.stats.head._1.decode[String].reverse
     }
@@ -30,7 +30,7 @@ class SimonsOracleTest extends AnyFlatSpec{
   }
 
   "RandomOneToOne" should "shuffle the domain" in {
-    val randomOneToOneOracle = NRandomOneToOneOracle
+    val randomOneToOneOracle = RandomOneToOneOracle
     val resultsRandomOneToOne = measureForAllInputDichotomies(500)(Some(Set(0,1,2)))(Some(Set(3,4,5)))(randomOneToOneOracle.circuit(nQubits)).map{
       case (inBitStr, st) => inBitStr -> st.stats.head._1.decode[String].reverse
     }

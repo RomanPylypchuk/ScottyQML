@@ -2,7 +2,7 @@ package qroutines.instances.oracles
 
 import cats.data.Reader
 import qroutines.blocks.CircuitParams.NumberQubits
-import qroutines.blocks.noracle.NOracle
+import qroutines.blocks.noracle.Oracle
 import qroutines.blocks.noracle.OracleDefinitions.{BitStringValue, BitValue}
 import scotty.quantum.gate.StandardGate.CNOT
 import scotty.quantum.{Bit, Circuit, One, Zero}
@@ -10,9 +10,9 @@ import utils.GateUtils.{placeCNOTs, singlePlaceCNOTs}
 import utils.codec.BiCodec.BiCodecSyntax
 import utils.factory.BitRegisterFactory.controlMapBitRegister
 
-trait NSimonsOracle extends NOracle
+trait SimonsOracle extends Oracle
 
-object NSimonsOracle {
+object SimonsOracle {
 
   val copyToSecondRegister: Int => Circuit = {
     nOracleQubits =>
@@ -20,7 +20,7 @@ object NSimonsOracle {
       Circuit(copyCNOTs: _*)
   }
 
-  sealed trait NOneToOneOracle extends NSimonsOracle {
+  sealed trait OneToOneOracle extends SimonsOracle {
     type DefiningType = BitValue //One for identity oracle, Zero for random oracle
 
     val circuit: Reader[NumberQubits, Circuit] = Reader {
@@ -37,16 +37,16 @@ object NSimonsOracle {
     }
   }
 
-  case object NIdentityOracle extends NOneToOneOracle {
+  case object IdentityOracle extends OneToOneOracle {
     val definingObject: BitValue = BitValue(One())
   }
 
-  case object NRandomOneToOneOracle extends NOneToOneOracle {
+  case object RandomOneToOneOracle extends OneToOneOracle {
     val definingObject: BitValue = BitValue(Zero())
   }
 
   //TODO - Perhaps need a smart constructor, because one could pass all-zeros bitString, which should not be the case here :|
-  case class TwoToOneOracle(definingObject: BitStringValue) extends NSimonsOracle {
+  case class TwoToOneOracle(definingObject: BitStringValue) extends SimonsOracle {
     type DefiningType = BitStringValue
 
     val circuit: Reader[NumberQubits, Circuit] = Reader {

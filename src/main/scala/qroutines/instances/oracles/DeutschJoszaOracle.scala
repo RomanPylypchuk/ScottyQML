@@ -2,7 +2,7 @@ package qroutines.instances.oracles
 
 import cats.data.Reader
 import qroutines.blocks.CircuitParams.NumberQubits
-import qroutines.blocks.noracle.NOracle
+import qroutines.blocks.noracle.Oracle
 import qroutines.blocks.noracle.OracleDefinitions.{BitShiftValue, BitValue}
 import scotty.quantum.gate.StandardGate.X
 import scotty.quantum.{BitRegister, Circuit, One, Zero}
@@ -10,11 +10,11 @@ import utils.GateUtils.singlePlaceCNOTs
 import utils.codec.BiCodec.BiCodecSyntax
 import utils.factory.BitRegisterFactory.{BitRegisterOps, controlMapBitRegister}
 
-trait NDeutschJoszaOracle extends NOracle
+trait DeutschJoszaOracle extends Oracle
 
-object NDeutschJoszaOracle{
+object DeutschJoszaOracle{
 
-  sealed trait NConstantOracle extends NDeutschJoszaOracle {
+  sealed trait ConstantOracle extends DeutschJoszaOracle {
     type DefiningType = BitValue
 
     val circuit: Reader[NumberQubits, Circuit] = Reader {
@@ -30,16 +30,16 @@ object NDeutschJoszaOracle{
     }
   }
 
-  final case object ZeroOracle extends NConstantOracle {
+  final case object ZeroOracle extends ConstantOracle {
     val definingObject: BitValue = BitValue(Zero())
   }
 
-  final case object OneOracle extends NConstantOracle {
+  final case object OneOracle extends ConstantOracle {
     val definingObject: BitValue = BitValue(One())
   }
 
 
-  final case class BalancedOracle(definingObject: BitShiftValue) extends NDeutschJoszaOracle {
+  final case class BalancedOracle(definingObject: BitShiftValue) extends DeutschJoszaOracle {
     type DefiningType = BitShiftValue
 
     val circuit: Reader[NumberQubits, Circuit] = Reader {

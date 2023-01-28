@@ -7,7 +7,7 @@ import qroutines.blocks.modular.ModularUnitaryParams
 import qroutines.blocks.procedure.ProcedureStep._
 import qroutines.blocks.procedure.{ProcedureStep, QuantumProcedure}
 import qroutines.blocks.routine.QuantumRoutineOutput.LongOutput
-import qroutines.instances.routines.qft.NShor
+import qroutines.instances.routines.qft.Shor
 import utils.algebra.NumberTheoryRoutines.gcd
 
 object ShorProcedure extends QuantumProcedure[ModularUnitaryParams] {
@@ -30,8 +30,8 @@ object ShorProcedure extends QuantumProcedure[ModularUnitaryParams] {
       if (common > 1) params.copy(N = common).validNec else s"GCD($x, $n) is one".invalidNec
   }
 
-  type Routine = NShor.type
-  val routine: NShor.type = NShor
+  type Routine = Shor.type
+  val routine: Shor.type = Shor
 
   val findViaOrder: WithQuantum[ModularUnitaryParams, OrderFindingParams] =
     WithQuantum[ModularUnitaryParams, OrderFindingParams](

@@ -6,7 +6,7 @@ import qroutines.blocks.routine.QuantumRoutine
 import qroutines.instances.circuits.PhaseEstimationCircuit
 import qroutines.instances.interpreters.PhaseEstimationInterpreter
 
-object NPhaseEstimation extends QuantumRoutine{
+object PhaseEstimation extends QuantumRoutine{
   type InParamsType = QPEParams
 
   val qrCircuit: PhaseEstimationCircuit.type = PhaseEstimationCircuit

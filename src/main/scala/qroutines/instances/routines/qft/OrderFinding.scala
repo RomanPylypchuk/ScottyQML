@@ -6,7 +6,7 @@ import qroutines.blocks.routine.QuantumRoutine
 import qroutines.instances.circuits.OrderFindingCircuit
 import qroutines.instances.interpreters.OrderFindingInterpreter
 
-object NOrderFinding extends QuantumRoutine{
+object OrderFinding extends QuantumRoutine{
  type InParamsType = OrderFindingParams
  type RoutineCircuitType = OrderFindingCircuit.type
 

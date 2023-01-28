@@ -15,7 +15,7 @@ class InnerProductOracleTest extends AnyFlatSpec{
 
   "Inner Product Oracle" should "output inner product (mod 2)" in {
     val iBits = "101".encode[BitRegister]
-    val iOracle = NInnerProductOracle(BitStringValue(iBits))
+    val iOracle = InnerProductOracle(BitStringValue(iBits))
     val allInputStats = measureForAllInputDichotomies(1000)(Some(Set(0,1,2)))(Some(Set(3)))(iOracle.circuit(nQubits))
 
     allInputStats.forall{case (inD, dStats) =>

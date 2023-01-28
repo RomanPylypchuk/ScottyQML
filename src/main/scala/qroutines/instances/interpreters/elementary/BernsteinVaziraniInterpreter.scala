@@ -7,7 +7,7 @@ import qroutines.blocks.measurements.QuantumMeasurementResult
 import qroutines.blocks.routine.QuantumRoutineInterpreter
 import qroutines.blocks.routine.QuantumRoutineOutput.BitStringOutput
 
-object NBernsteinVaziraniInterpreter extends QuantumRoutineInterpreter{
+object BernsteinVaziraniInterpreter extends QuantumRoutineInterpreter{
   type InParamsType = NumberQubits
   type RoutineOutput = BitStringOutput
 

@@ -12,7 +12,7 @@ import utils.BinarySolver.binarySolverBruteForce
 import utils.codec.BiCodec.BiCodecSyntax
 import utils.factory.BitRegisterFactory.bitBitRegister
 
-object NSimonsInterpreter extends QuantumRoutineInterpreter {
+object SimonsInterpreter extends QuantumRoutineInterpreter {
   type InParamsType = NumberQubits
   type RoutineOutput = OneOrTwoToOne
 

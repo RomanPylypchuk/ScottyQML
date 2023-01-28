@@ -7,7 +7,7 @@ import qroutines.instances.circuits.GroverCircuit
 import qroutines.instances.interpreters.GroverInterpreter
 import qroutines.instances.oracles.GroverOracle
 
-case class NGrover(oracle: GroverOracle) extends QuantumRoutine{
+case class Grover(oracle: GroverOracle) extends QuantumRoutine{
   type InParamsType = NumberQubits
   type RoutineCircuitType = GroverCircuit
 

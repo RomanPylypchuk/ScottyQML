@@ -3,7 +3,7 @@ package qroutines.instances.oracles
 import org.scalatest.flatspec.AnyFlatSpec
 import qroutines.blocks.CircuitParams.NumberQubits
 import qroutines.blocks.noracle.OracleDefinitions.BitShiftValue
-import qroutines.instances.oracles.NDeutschJoszaOracle.{BalancedOracle, OneOracle}
+import qroutines.instances.oracles.DeutschJoszaOracle.{BalancedOracle, OneOracle}
 import scotty.quantum.BitRegister
 import scotty.quantum.ExperimentResult.StateStats
 import utils.Measure.measureForAllInputDichotomies
@@ -13,7 +13,7 @@ import utils.factory.BitRegisterFactory.stringBitRegister
 class DeutschJoszaOracleTest extends AnyFlatSpec {
 
   val nOracleQubits: NumberQubits = NumberQubits(3)
-  val measureOracle: NDeutschJoszaOracle => Map[String, StateStats] =
+  val measureOracle: DeutschJoszaOracle => Map[String, StateStats] =
     oracle => {
       measureForAllInputDichotomies(1000)(Some(Set(0,1,2)))(Some(Set(3)))(oracle.circuit(nOracleQubits))
     }

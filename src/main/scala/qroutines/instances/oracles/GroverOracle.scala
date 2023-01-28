@@ -1,7 +1,7 @@
 package qroutines.instances.oracles
 
-import qroutines.blocks.noracle.NOracle
+import qroutines.blocks.noracle.Oracle
 
-trait GroverOracle extends NOracle{
+trait GroverOracle extends Oracle{
   val numberSolutions: Int
 }

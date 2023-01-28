@@ -13,7 +13,7 @@ import utils.codec.BiCodec.BiCodecSyntax
 import utils.factory.BitRegisterFactory.decimalBitRegister
 
 
-class NOrderFindingTest extends AnyFlatSpec{
+class OrderFindingTest extends AnyFlatSpec{
 
   val modularParams: ModularUnitaryParams = ModularUnitaryParams(7, 15)
 
@@ -32,7 +32,7 @@ class NOrderFindingTest extends AnyFlatSpec{
 
   "Order of 7 mod 15, computed quantum mechanically" should "give order r=4" in {
     val orderFindingParams = OrderFindingParams(modularParams, mod15)
-    val result = QuantumRoutine.run(50)(NOrderFinding)(orderFindingParams)
+    val result = QuantumRoutine.run(50)(OrderFinding)(orderFindingParams)
     assert(result == LongOutput(4L).validNec)
   }
 }

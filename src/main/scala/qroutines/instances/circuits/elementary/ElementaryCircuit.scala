@@ -2,15 +2,15 @@ package qroutines.instances.circuits.elementary
 
 import cats.data.Reader
 import qroutines.blocks.CircuitParams.NumberQubits
-import qroutines.blocks.noracle.NOracle
+import qroutines.blocks.noracle.Oracle
 import qroutines.blocks.routine.QuantumRoutineCircuit.DependentQuantumRoutineCircuit
 import scotty.quantum.Circuit
 
-trait NElementaryCircuit extends DependentQuantumRoutineCircuit{
+trait ElementaryCircuit extends DependentQuantumRoutineCircuit{
 
   type InParamsType = NumberQubits
   type OutParamsType = NumberQubits
-  type UsedRoutineType <: NOracle
+  type UsedRoutineType <: Oracle
 
   val preOracle: Reader[NumberQubits, Circuit]
   val postOracle: Reader[NumberQubits, Circuit]

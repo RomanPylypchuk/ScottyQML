@@ -2,7 +2,7 @@ package qroutines.instances.routines
 
 import breeze.numerics.log2
 import qroutines.blocks.ControlledUnitaryPower
-import qroutines.blocks.modular.{ModularUnitaryParams, NModularExponentiation}
+import qroutines.blocks.modular.{ModularExponentiation, ModularUnitaryParams}
 import scotty.quantum.Circuit
 import scotty.quantum.gate.StandardGate.{CSWAP, SWAP, X}
 import scotty.quantum.gate.{CompositeGate, Controlled, Gate}
@@ -34,7 +34,7 @@ package object qft {
         }
   }
 
-  val mod15: NModularExponentiation = new NModularExponentiation {
+  val mod15: ModularExponentiation = new ModularExponentiation {
     def controlPower: ModularUnitaryParams => ControlledUnitaryPower =
       params => {
         val ModularUnitaryParams(x, modN) = params

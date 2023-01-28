@@ -6,7 +6,7 @@ import scotty.quantum.Circuit
 import scotty.quantum.gate.StandardGate.{H, X}
 import utils.GateUtils.HTensor
 
-trait NDeutschJoszaLikeCircuit extends NElementaryCircuit {
+trait DeutschJoszaLikeCircuit extends ElementaryCircuit {
 
   val inParamsToUsedRoutineParams: Reader[NumberQubits, NumberQubits] = Reader{
     nq => nq.copy(nQubits = nq.nQubits - 1)

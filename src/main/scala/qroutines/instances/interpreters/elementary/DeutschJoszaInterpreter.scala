@@ -11,7 +11,7 @@ import utils.codec.BiCodec.BiCodecSyntax
 import utils.factory.BitRegisterFactory.stringBitRegister
 
 
-object NDeutschJoszaInterpreter extends QuantumRoutineInterpreter{
+object DeutschJoszaInterpreter extends QuantumRoutineInterpreter{
   type InParamsType = NumberQubits
   type RoutineOutput = ConstantOrBalanced
 
