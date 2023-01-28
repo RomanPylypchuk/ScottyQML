@@ -2,12 +2,11 @@ package qroutines.blocks.procedure
 
 import cats.data.Validated._
 import cats.data.{Kleisli, Reader, ValidatedNec, Writer}
-import cats.implicits.{catsKernelStdMonoidForVector, catsSyntaxValidatedIdBinCompat0}
+import cats.implicits.catsKernelStdMonoidForVector
 import qroutines.blocks.measurements.QuantumMeasurementBackend
-import qroutines.blocks.routine.QuantumRoutineOutput.LongOutput
-import qroutines.blocks.routine.{QuantumRoutine, QuantumRoutineOutput}
-import qroutines.instances.procedures.ProcedureStep
-import qroutines.instances.procedures.ProcedureStep.{NoQuantum, WithQuantum}
+import qroutines.blocks.measurements.QuantumMeasurementBackend.DefaultScottyBackend
+import qroutines.blocks.procedure.ProcedureStep._
+import qroutines.blocks.routine.QuantumRoutine
 
 
 trait QuantumProcedure[A] {
@@ -54,12 +53,10 @@ trait QuantumProcedure[A] {
 object QuantumProcedure {
 
   //TODO - init and inParams may overlap in the beginning, not very nice to specify twice
-  def run[A](times: Int, backend: QuantumMeasurementBackend)
+  def run[A](times: Int, backend: QuantumMeasurementBackend = DefaultScottyBackend)
       (qp: QuantumProcedure[A])(init: A)(inParams: qp.routine.InParamsType): (Vector[String], Either[A, A]) = {
     val writer = qp.procedure(times, backend)(inParams)(Left(init))
     writer.run
   }
 
-  //val init: Writer[Vector[String], Either[Long, Long]] = Writer(Vector.empty[String], 1877L.asLeft[Long])
-  //  init.flatMap(stepToKleisli(Reader(checkEven)).run)
 }

@@ -19,6 +19,7 @@ object ShorInterpreter extends QuantumRoutineInterpreter {
         case LongOutput(r) =>
           if (r % 2 == 0 && math.abs(math.pow(params.x, r / 2) % params.N) != 1) {
             val maybeFactors = List(1, -1).map(shift => gcd((math.pow(params.x, r / 2).toLong + shift) % params.N, params.N)._1)
+            println(maybeFactors)
             maybeFactors
               .find {
                 params.N % _ == 0

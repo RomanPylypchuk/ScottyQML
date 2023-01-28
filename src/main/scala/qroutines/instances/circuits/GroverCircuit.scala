@@ -2,7 +2,6 @@ package qroutines.instances.circuits
 
 import cats.data.Reader
 import qml.encoding.amplitude.MultipleControlled.multipleControlled
-import qroutines.blocks.noracle.NOracle
 import qroutines.blocks.routine.QuantumRoutineCircuit.DependentQuantumRoutineCircuit
 import qroutines.instances.oracles.GroverOracle
 import quantumroutines.blocks.CircuitParams.NumberQubits
@@ -45,7 +44,6 @@ case class GroverCircuit(usedRoutine: GroverOracle) extends DependentQuantumRout
       val initMinusX: Circuit = Circuit.apply(Circuit.generateRegister(nOracleQubits + 1), X(nOracleQubits), H(nOracleQubits))
       val hadamards: Circuit = Circuit(HTensor(nOracleQubits): _*)
       val applyTimes: Int = math.floor((math.Pi / 4) * math.sqrt(math.pow(2, nOracleQubits) / usedRoutine.numberSolutions)).toInt
-      //println("Need to apply G iteration " + applyTimes + " times.")
       val grovers: Circuit = List.fill(applyTimes)(groverIteration(oracleQubits)).reduceLeft(_ combine _)
       initMinusX combine hadamards combine grovers
     }

@@ -8,7 +8,7 @@ import qroutines.blocks.routine.QuantumRoutineOutput.RationalOutput
 import quantumroutines.blocks.CircuitParams.{NumberQubits, QPEParams}
 import spire.math.Rational
 import utils.codec.BiCodec.BiCodecSyntax
-import utils.factory.BitRegisterFactory.{BitRegisterTo, decimalBitRegister}
+import utils.factory.BitRegisterFactory.{BitRegisterOps, decimalBitRegister}
 
 
 object PhaseEstimationInterpreter extends QuantumRoutineInterpreter {

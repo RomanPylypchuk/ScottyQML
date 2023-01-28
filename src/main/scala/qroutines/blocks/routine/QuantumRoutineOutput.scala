@@ -9,6 +9,7 @@ object QuantumRoutineOutput{
 
   sealed trait VectorOutput extends QuantumRoutineOutput
   case class BitStringOutput(br: BitRegister) extends VectorOutput
+  case class BitStringsOutput(bs: List[BitRegister]) extends VectorOutput
 
   sealed trait OneOrTwoToOne extends VectorOutput
   case object OneToOne extends OneOrTwoToOne

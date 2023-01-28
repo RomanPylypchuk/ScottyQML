@@ -4,12 +4,11 @@ import cats.data.Reader
 import qroutines.blocks.noracle.NOracle
 import qroutines.blocks.noracle.OracleDefinitions.{BitShiftValue, BitValue}
 import quantumroutines.blocks.CircuitParams.NumberQubits
-import quantumroutines.blocks.CircuitWithParams
 import scotty.quantum.gate.StandardGate.X
 import scotty.quantum.{BitRegister, Circuit, One, Zero}
 import utils.GateUtils.singlePlaceCNOTs
 import utils.codec.BiCodec.BiCodecSyntax
-import utils.factory.BitRegisterFactory.{BitRegisterTo, controlMapBitRegister}
+import utils.factory.BitRegisterFactory.{BitRegisterOps, controlMapBitRegister}
 
 trait NDeutschJoszaOracle extends NOracle
 

@@ -4,7 +4,7 @@ import scotty.quantum.ExperimentResult.StateStats
 import scotty.quantum._
 import scotty.simulator.QuantumSimulator
 import utils.codec.BiCodec.BiCodecSyntax
-import utils.factory.BitRegisterFactory.{BitRegisterTo, stringBitRegister}
+import utils.factory.BitRegisterFactory.{BitRegisterOps, stringBitRegister}
 
 object Measure {
 

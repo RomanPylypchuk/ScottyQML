@@ -1,4 +1,4 @@
-package qroutines
+package qroutines.blocks
 
 trait NeedsDefinitionBy[+A] {
   type DefiningType <: A

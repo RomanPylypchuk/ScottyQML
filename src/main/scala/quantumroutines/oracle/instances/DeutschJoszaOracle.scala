@@ -5,7 +5,7 @@ import scotty.quantum._
 import scotty.quantum.gate.StandardGate.X
 import utils.GateUtils.singlePlaceCNOTs
 import utils.codec.BiCodec.BiCodecSyntax
-import utils.factory.BitRegisterFactory.{BitRegisterTo, controlMapBitRegister}
+import utils.factory.BitRegisterFactory.{BitRegisterOps, controlMapBitRegister}
 
 sealed trait DeutschJoszaOracle extends Oracle{
   //type OutputType = ScalarOutput

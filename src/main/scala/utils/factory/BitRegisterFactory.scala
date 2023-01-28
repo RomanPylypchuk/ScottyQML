@@ -60,7 +60,7 @@ object BitRegisterFactory {
     }
   )
 
-  implicit class BitRegisterTo(bitRegister: BitRegister) {
+  implicit class BitRegisterOps(bitRegister: BitRegister) {
 
     def reverse: BitRegister = BitRegister(bitRegister.values.reverse :_*)
 
